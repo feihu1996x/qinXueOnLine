@@ -7,7 +7,9 @@
 ```bash
 pip3 install \
      mysqlclient \
-     django
+     django \
+     pillow
     
 ```
+
 
