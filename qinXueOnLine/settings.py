@@ -76,8 +76,11 @@ WSGI_APPLICATION = 'qinXueOnLine.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'qinXueOnLine',
+        'USER': 'root',
+        'PASSWORD': '9f%IFhJ618',
+        'HOST': '127.0.0.1'
     }
 }
 
