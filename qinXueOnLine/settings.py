@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'organizations',
     'userOperations',
     'xadmin',
-    'crispy_forms'
+    'crispy_forms',
+	'captcha'
 ]
 # 重载默认的auth_user表
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -135,3 +136,19 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+# 重载用户认证机制
+AUTHENTICATION_BACKENDS = {
+    'users.views.CustomBackend',
+}
+
+# 发送邮件相关配置
+EMAIL_HOST = 'smtp.sina.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'qinxueonline@sina.com'
+EMAIL_HOST_PASSWORD = 'admin123'
+EMAIL_USE_TLS = False
+EMAIL_FROM = EMAIL_HOST_USER

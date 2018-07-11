@@ -19,7 +19,6 @@ pip3 install \
      six \
      django-import-export \
      requests \
+     django-simple-captcha
     
 ```
-
-
