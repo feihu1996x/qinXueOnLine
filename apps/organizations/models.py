@@ -8,7 +8,7 @@ from django.db import models
 class City(models.Model):
     city_name = models.CharField(max_length=20, verbose_name='城市名称')
     add_time = models.DateField(default=datetime.now,verbose_name='添加时间')
-    city_desc = models.CharField(max_length=200, verbose_name='城市描述')
+    city_desc = models.TextField(verbose_name='城市描述')
 
     class Meta:
         verbose_name = '城市'
@@ -19,6 +19,9 @@ class City(models.Model):
 
 
 class CourseOrg(models.Model):
+    student_nums = models.IntegerField(default=0, verbose_name='学习人数')
+    course_nums = models.IntegerField(default=0, verbose_name='课程数')
+    category = models.CharField(verbose_name='机构类别', max_length=20, choices=(('pxjg', '培训机构'), ('gr', '个人'), ('gx', '高校')), default='pxjg')
     org_name = models.CharField(max_length=50, verbose_name='机构名称')
     org_desc = models.TextField(verbose_name='机构描述')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
@@ -46,6 +49,7 @@ class Teacher(models.Model):
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏数')
     add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
+    head_shot = models.ImageField(upload_to='resource/images/head_shot/%Y/%m', default='resource/images/head_shot/default.png' ,max_length=100, verbose_name='讲师头像')
 
     class Meta:
         verbose_name = '教师'
