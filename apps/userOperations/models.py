@@ -27,14 +27,14 @@ class CourseComments(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name='用户', on_delete=models.CASCADE)
     course = models.ForeignKey(Course, verbose_name='课程', on_delete=models.CASCADE)
     comment_content = models.CharField(max_length=200, verbose_name='评论内容')
-    add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
         verbose_name = '课程评论'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.user.username
+        return self.user.comment_content
 
 
 class UserFavorite(models.Model):

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.db import models
-from organizations.models import CourseOrg
+from organizations.models import CourseOrg, Teacher
 
 
 # Create your models here.
@@ -17,6 +17,11 @@ class Course(models.Model):
     cover_image = models.ImageField(upload_to='resource/images/course_cover/%Y/%m', verbose_name='课程封面', max_length=100)
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
+    course_category = models.CharField(verbose_name='课程类别', max_length=30, default='刺客组织')
+    course_tag = models.CharField(default='', max_length=50, verbose_name='课程标签')
+    teacher = models.ForeignKey(Teacher, verbose_name='课程讲师', null=True, blank=True, on_delete=models.CASCADE)
+    essential_skill = models.CharField(max_length=300,  verbose_name='课程须知', default='')
+    course_target = models.CharField(max_length=300, verbose_name='课程目标', default='')
 
     class Meta:
         verbose_name = '课程基本信息'
@@ -24,6 +29,27 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_chapter_nums(self):
+        """
+        课程章节数
+        :return:
+        """
+        return self.chapter_set.all().count()
+
+    def get_course_users(self):
+        """
+        获取课程学习用户
+        :return:
+        """
+        return self.usercourse_set.all()
+
+    def get_course_chapters(self):
+        """
+        获取课程章节
+        :return:
+        """
+        return self.chapter_set.all()
 
 
 class Chapter(models.Model):
@@ -38,11 +64,16 @@ class Chapter(models.Model):
     def __str__(self):
         return self.chapter_name
 
+    def get_chapter_videos(self):
+        return self.video_set.all()
+
 
 class Video(models.Model):
     chapter = models.ForeignKey(Chapter, verbose_name='章节', on_delete=models.CASCADE)
     video_name = models.CharField(max_length=100, verbose_name='视频名称')
     add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
+    video_source = models.URLField(verbose_name='资源地址', max_length=300, default='')
+    video_times = models.IntegerField(default=0, verbose_name='视频时长')
 
     class Meta:
         verbose_name = '视频基本信息'
