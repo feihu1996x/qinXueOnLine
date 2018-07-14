@@ -53,7 +53,7 @@ class CourseDetailView(View):
 			if UserFavorite.objects.filter(user=request.user, fav_id=course_record.id, fav_type=1):  # 如果用户已经收藏该课程
 				course_has_fav = True
 			if UserFavorite.objects.filter(user=request.user, fav_id=course_record.course_org.id, fav_type=2):  # 如果用户已经收藏该机构
-				course_org_has_fav = False
+				course_org_has_fav = True
 
 		# 增加课程点击数
 		course_record.click_nums += 1

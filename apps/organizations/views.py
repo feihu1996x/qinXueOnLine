@@ -3,8 +3,9 @@ from django.views.generic import View
 from django.http import HttpResponse
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
-from organizations.models import CourseOrg, City
+from organizations.models import CourseOrg, City, Teacher
 from userOperations.models import UserFavorite
+from courses.models import Course
 
 from organizations.forms import UserAskModelForm
 
@@ -189,3 +190,61 @@ class AddFavView(View):
 			user_fav_model.user = request.user
 			user_fav_model.save()
 			return HttpResponse('{"status": 0, "msg": "已收藏"}', content_type='application/json')
+
+
+class TeacherListView(View):
+	"""
+	讲师列表请求处理类
+	"""
+	def get(self, request):
+		all_teacher_records = Teacher.objects.all()
+		hot_teacher_records = Teacher.objects.all().order_by("-fav_nums")[:3]
+		teacher_nums = all_teacher_records.count()
+
+		# 讲师列表记录排序
+		sort_by = request.GET.get('sort_by', '')
+		if sort_by == 'hot':
+			all_teacher_records = all_teacher_records.order_by('-click_nums')
+
+		# 对讲师记录进行分页处理
+		try:
+			page = request.GET.get('page', 1)
+		except PageNotAnInteger:
+			page = 1
+		p = Paginator(all_teacher_records, 5, request=request)
+		all_teacher_records = p.page(page)
+
+		return render(request, 'teachers-list.html', {
+			'all_teacher_records': all_teacher_records,
+			'sort_by': sort_by,
+			'hot_teacher_records': hot_teacher_records,
+			'teacher_nums': teacher_nums
+		})
+
+
+class TeacherDetailView(View):
+	"""
+	讲师详情请求处理类
+	"""
+	def get(self, request, teacher_id):
+		teacher_record = Teacher.objects.get(id=int(teacher_id))
+		all_teacher_courses = Course.objects.filter(teacher=teacher_record)
+		hot_teacher_records = Teacher.objects.all().order_by("-fav_nums")[:3]
+
+		# 判断讲师或者机构的收藏状态
+		teacher_has_fav = False
+		course_org_has_fav = False
+		if request.user.is_authenticated:  # 如果用户已经登录
+			if UserFavorite.objects.filter(user=request.user, fav_id=teacher_record.id, fav_type=3):  # 如果用户已经收藏该讲师
+				teacher_has_fav = True
+			if UserFavorite.objects.filter(user=request.user, fav_id=teacher_record.course_org.id, fav_type=2):  # 如果用户已经收藏该机构
+				course_org_has_fav = True
+
+
+		return render(request, 'teacher-detail.html', {
+			"teacher_record": teacher_record,
+			'all_teacher_courses': all_teacher_courses,
+			'hot_teacher_records': hot_teacher_records,
+			'teacher_has_fav': teacher_has_fav,
+			'course_org_has_fav': course_org_has_fav
+		})

@@ -8,7 +8,7 @@
 
 from django.conf.urls import url
 
-from organizations.views import OrgListView, UserAskView, OrgHomeView, OrgCourseView, OrgDescView, OrgTeacherView, AddFavView
+from organizations.views import OrgListView, UserAskView, OrgHomeView, OrgCourseView, OrgDescView, OrgTeacherView, AddFavView, TeacherListView, TeacherDetailView
 
 urlpatterns = [
 	url(r'^list/$', OrgListView.as_view(), name='org_list'),  # 课程机构列表url配置
@@ -18,4 +18,6 @@ urlpatterns = [
 	url(r'^desc/(?P<org_id>\d+)/$', OrgDescView.as_view(),  name='org_desc'),  # 机构详情url配置
 	url(r'^teacher/(?P<org_id>\d+)/$', OrgTeacherView.as_view(),  name='org_teacher'),  # 机构讲师url配置
 	url(r'^user_fav/$', AddFavView.as_view(),  name='user_fav'),  # 用户收藏/取消收藏url配置
+	url(r'^teacher/list/$', TeacherListView.as_view(),  name='teacher_list'),  # 讲师列表url配置
+	url(r'^teacher/detail/(?P<teacher_id>\d+)$', TeacherDetailView.as_view(),  name='teacher_detail'),  # 讲师详情url配置
 ]
