@@ -12,7 +12,7 @@ function sendCodeChangeEmail($btn){
         cache: false,
         type: "get",
         dataType:'json',
-        url:"/users/sendemail_code/",
+        url:"/user/send_email_code/",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -20,13 +20,10 @@ function sendCodeChangeEmail($btn){
             $btn.attr('disabled',true);
         },
         success: function(data){
-            if(data.email){
-                Dml.fun.showValidateError($('#jsChangeEmail'), data.email);
-            }else if(data.status == 'success'){
-                Dml.fun.showErrorTips($('#jsChangeEmailTips'), "邮箱验证码已发送");
-            }else if(data.status == 'failure'){
-                 Dml.fun.showValidateError($('#jsChangeEmail'), "邮箱验证码发送失败");
-            }else if(data.status == 'success'){
+            if(data.status === 0){
+                Dml.fun.showErrorTips($('#jsChangeEmailTips'), data.msg);
+            } else if (data.status === 1){
+                 Dml.fun.showValidateError($('#jsChangeEmail'), data.msg);
             }
         },
         complete: function(XMLHttpRequest){
@@ -50,7 +47,7 @@ var verify = verifyDialogSubmit(
         cache: false,
         type: 'post',
         dataType:'json',
-        url:"/users/update_email/ ",
+        url:"/user/modify_email/ ",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -59,13 +56,11 @@ var verify = verifyDialogSubmit(
             $("#jsChangeEmailTips").html("验证中...").show(500);
         },
         success: function(data) {
-            if(data.email){
-                Dml.fun.showValidateError($('#jsChangeEmail'), data.email);
-            }else if(data.status == "success"){
-                Dml.fun.showErrorTips($('#jsChangePhoneTips'), "邮箱信息更新成功");
+            if(data.status === 0){
+                Dml.fun.showErrorTips($('#jsChangePhoneTips'), data.msg);
                 setTimeout(function(){location.reload();},1000);
             }else{
-                 Dml.fun.showValidateError($('#jsChangeEmail'), "邮箱信息更新失败");
+                 Dml.fun.showValidateError($('#jsChangeEmail'), data.msg);
             }
         },
         complete: function(XMLHttpRequest){
@@ -86,15 +81,15 @@ $(function(){
             cache: false,
             type: "POST",
             dataType:'json',
-            url:"/users/update/pwd/",
+            url:"/user/modify_pwd",
             data:$('#jsResetPwdForm').serialize(),
             async: true,
             success: function(data) {
-                if(data.password1){
-                    Dml.fun.showValidateError($("#pwd"), data.password1);
-                }else if(data.password2){
-                    Dml.fun.showValidateError($("#repwd"), data.password2);
-                }else if(data.status == "success"){
+                if(data.password){
+                    Dml.fun.showValidateError($("#pwd"), data.password);
+                }else if(data.password1){
+                    Dml.fun.showValidateError($("#repwd"), data.password1);
+                }else if(data.status === 0){
                     Dml.fun.showTipsDialog({
                         title:'提交成功',
                         h2:'修改密码成功，请重新登录!',
@@ -160,7 +155,7 @@ $(function(){
             cache: false,
             type: 'post',
             dataType:'json',
-            url:"/users/info/",
+            url:"/user/info/",
             data:$jsEditUserForm.serialize(),
             async: true,
             beforeSend:function(XMLHttpRequest){
@@ -170,16 +165,16 @@ $(function(){
             success: function(data) {
                 if(data.nick_name){
                     _showValidateError($('#nick_name'), data.nick_name);
-                }else if(data.birday){
-                   _showValidateError($('#birth_day'), data.birday);
+                }else if(data.birthday){
+                   _showValidateError($('#birth_day'), data.birthday);
                 }else if(data.address){
                    _showValidateError($('#address'), data.address);
-                }else if(data.status == "failure"){
+                }else if(data.status === 1){
                      Dml.fun.showTipsDialog({
                         title: '保存失败',
                         h2: data.msg
                     });
-                }else if(data.status == "success"){
+                }else if(data.status === 0){
                     Dml.fun.showTipsDialog({
                         title: '保存成功',
                         h2: '个人信息修改成功！'

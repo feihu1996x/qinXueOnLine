@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auto_login
@@ -5,10 +7,17 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
+from django.http import HttpResponse
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
+from users.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserImageUploadModelForm, UserModifyPwdForm, UserInfoModelForm
 from users.models import UserProfile, EmailVerifyRecord
-from users.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm
+from userOperations.models import UserCourse, UserFavorite, UserMessage
 from utils.send_email import send_email
+from utils.mixin_utils import LoginRequiredMixin
+from organizations.models import CourseOrg
+from organizations.models import Teacher
+from courses.models import Course
 
 
 class CustomBackend(ModelBackend):
@@ -132,6 +141,7 @@ class ActiveView(View):
 				user = UserProfile.objects.get(email=email)
 				user.is_active = True
 				user.save()
+
 			return render(request, 'login.html', {'msg': '用户已经激活，请登录！'})
 		else:
 			return render(request, 'active_fail.html', {'msg': '激活链接失效！'})
@@ -150,7 +160,7 @@ class ForgetPwdView(View):
 
 		if forget_pwd_form.is_valid():  # 找回密码表单字段验证成功
 			email = request.POST.get('email', '')
-			send_email(email=email, send_type='forget') # 发送找回密码链接
+			send_email(email=email, send_type='forget')  # 发送找回密码链接
 			return render(request, 'forgetpwd.html', {'forget_pwd_form': forget_pwd_form, 'msg': '重置密码链接已经发送到您的邮箱！'})
 		else:
 			return render(request, 'forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
@@ -185,3 +195,167 @@ class ResetPwdView(View):
 				return render(request, 'login.html', {'msg': '密码重置成功，请重新登录'})
 		else:
 			return render(request, 'password_reset.html', {'email': reset_pwd_form.data.get('email'), 'reset_pwd_form': reset_pwd_form})
+
+
+class UserInfoView(LoginRequiredMixin, View):
+	"""
+	用户资料请求处理类
+	"""
+	def get(self, request):
+		return render(request, 'usercenter-info.html', {})
+
+	def post(self, request):
+		user_info_model_form = UserInfoModelForm(request.POST, instance=request.user)
+		if user_info_model_form.is_valid():
+			user_info_model_form.save()
+			return HttpResponse('{"status":0, "msg": "资料保存成功"}', content_type='application/json')
+		else:
+			return HttpResponse(json.dumps(user_info_model_form.errors), content_type='application/json')
+
+
+class UserImageUploadView(LoginRequiredMixin, View):
+	"""
+	用户上传头像请求处理类
+	"""
+	def post(self, request):
+		user_image_upload_model_form = UserImageUploadModelForm(request.POST, request.FILES, instance=request.user)
+		if user_image_upload_model_form.is_valid():
+			"""
+			head_shot = user_image_upload_model_form.cleaned_data['head_shot']  # user_image_upload_model_form.cleaned_data保存的是已经验证通过的字段
+			request.user.head_shot = head_shot
+			request.user.save()
+			"""
+			user_image_upload_model_form.save(commit=True)
+			return HttpResponse('{"status":0}', content_type='application/json')
+		else:
+			return HttpResponse('{"status":1, "msg": "头像上传失败"}', content_type='application/json')
+
+
+class UserModifyPwdView(LoginRequiredMixin, View):
+	"""
+	用户修改密码请求处理类
+	"""
+
+	def post(self, request):
+		modify_pwd_form = UserModifyPwdForm(request.POST)
+		if modify_pwd_form.is_valid():
+			password = request.POST.get('password', '')
+			re_password = request.POST.get('password1', '')
+
+			if password != re_password:  # 两次密码输入不一致
+				return HttpResponse('{"status":1, "msg": "两次密码输入不一致"}', content_type='application/json')
+			else:  # 保存新密码
+				user_model = request.user
+				user_model.password = make_password(password=password)
+				user_model.save()
+				return HttpResponse('{"status":0, "msg": "密码修改成功"}', content_type='application/json')
+		else:
+			return HttpResponse(json.dumps(modify_pwd_form.errors), content_type='application/json')
+
+
+class SendEmailCodeView(LoginRequiredMixin, View):
+	"""
+	发送邮箱验证码请求处理类
+	"""
+	def get(self, request):
+		email = request.GET.get('email', '')
+
+		if UserProfile.objects.filter(email=email):  # 邮箱已经被占用
+			return HttpResponse('{"status":1, "msg": "邮箱已经被占用"}', content_type='application/json')
+
+		send_email(email=email, send_type='update')
+		return HttpResponse('{"status":0, "msg": "邮箱验证码发送成功"}', content_type='application/json')
+
+
+class UserModifyEmailView(LoginRequiredMixin ,View):
+	"""
+	用户修改邮箱请求处理类
+	"""
+	def post(self, request):
+		email = request.POST.get('email', '')
+		code = request.POST.get('code', '')
+
+		if EmailVerifyRecord.objects.filter(email=email, code=code, send_type='update'):  # 如果邮箱验证码匹配正确
+			user = request.user
+			user.email = email
+			user.save()
+			return HttpResponse('{"status":0, "msg": "邮箱修改成功"}', content_type='application/json')
+		else:
+			return HttpResponse('{"status":1, "msg": "邮箱修改失败"}', content_type='application/json')
+
+
+class UserMyCourseView(LoginRequiredMixin ,View):
+	"""
+	用户课程请求处理类
+	"""
+	def get(self, request):
+		user_course_records = UserCourse.objects.filter(user=request.user)
+
+		return render(request, 'usercenter-mycourse.html', {
+			'user_course_records': user_course_records
+		})
+
+
+class UserFavOrgView(LoginRequiredMixin, View):
+	"""
+	用户收藏机构请求处理类
+	"""
+	def get(self, request):
+		all_user_fav_records =  UserFavorite.objects.filter(user=request.user, fav_type=2)
+		all_user_fav_org_ids = [user_fav_record.fav_id for user_fav_record in all_user_fav_records]
+		all_user_fav_org_records = CourseOrg.objects.filter(id__in=all_user_fav_org_ids)
+		return render(request, 'usercenter-fav-org.html', {
+			'all_user_fav_org_records': all_user_fav_org_records
+		})
+
+
+class UserFavTeacherView(LoginRequiredMixin,View):
+	"""
+	用户收藏教师请求处理类
+	"""
+	def get(self, request):
+		all_user_fav_records = UserFavorite.objects.filter(user=request.user, fav_type=3)
+		all_user_fav_teacher_ids = [user_fav_record.fav_id for user_fav_record in all_user_fav_records]
+		all_user_fav_teacher_records = Teacher.objects.filter(id__in=all_user_fav_teacher_ids)
+		return render(request, 'usercenter-fav-teacher.html', {
+			'all_user_fav_teacher_records': all_user_fav_teacher_records
+		})
+
+
+class UserFavCourseView(LoginRequiredMixin, View):
+	"""
+	用户收藏课程请求处理类
+	"""
+	def get(self, request):
+		all_user_fav_records = UserFavorite.objects.filter(user=request.user, fav_type=1)
+		all_user_fav_course_ids = [user_fav_record.fav_id for user_fav_record in all_user_fav_records]
+		all_user_fav_course_records = Course.objects.filter(id__in=all_user_fav_course_ids)
+		return render(request, 'usercenter-fav-course.html', {
+			'all_user_fav_course_records': all_user_fav_course_records
+		})
+
+
+class UserMessageView(LoginRequiredMixin, View):
+	"""
+	用户消息请求处理类
+	"""
+	def get(self, request):
+		all_user_messages =  UserMessage.objects.filter(Q(user=0)|Q(user=request.user.id))
+
+		# 将所有未读消息变为已读
+		all_unread_user_messages = UserMessage.objects.filter(Q(user=request.user.id)|Q(user=0), has_read=False)
+		for unread_user_message in all_unread_user_messages:
+			unread_user_message.has_read = True
+			unread_user_message.save()
+
+		# 对用户消息进行分页
+		try:
+			page = request.GET.get('page', 1)
+		except PageNotAnInteger:
+			page = 1
+		p = Paginator(all_user_messages, 5, request=request)
+		all_user_messages = p.page(page)
+
+		return render(request, 'usercenter-message.html', {
+			'all_user_messages': all_user_messages
+		})

@@ -9,6 +9,8 @@
 from django import forms
 from captcha.fields import CaptchaField
 
+from users.models import UserProfile
+
 
 class LoginForm(forms.Form):
 	"""
@@ -45,3 +47,29 @@ class ResetPwdForm(forms.Form):
 	password = forms.CharField(required=True, min_length=5)
 	password1 = forms.CharField(required=True, min_length=5)
 	email = forms.EmailField(required=True)
+
+
+class UserImageUploadModelForm(forms.ModelForm):
+	"""
+	用户上传图像字段验证
+	"""
+	class Meta:
+		model = UserProfile
+		fields = ['head_shot']
+
+
+class UserModifyPwdForm(forms.Form):
+	"""
+	用户修改密码字段验证
+	"""
+	password = forms.CharField(required=True, min_length=5)
+	password1 = forms.CharField(required=True, min_length=5)
+
+
+class UserInfoModelForm(forms.ModelForm):
+	"""
+	用户个人信息表单字段验证
+	"""
+	class Meta:
+		model = UserProfile
+		fields = ['nick_name', 'birthday', 'gender', 'address', 'cell_phone_number']

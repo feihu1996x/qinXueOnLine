@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 from organizations.models import CourseOrg, City, Teacher
 from userOperations.models import UserFavorite
@@ -29,6 +30,11 @@ class OrgListView(View):
 		category = request.GET.get('category', '')
 		if category:
 			all_orgs = all_orgs.filter(category=category)
+
+		# 课程机构记录筛选——搜索关键词
+		search_keyword = request.GET.get('keywords', '')
+		if search_keyword:
+			all_orgs = all_orgs.filter(Q(category__icontains=search_keyword)|Q(org_name__icontains=search_keyword)|Q(org_desc__icontains=search_keyword))
 
 		# 总记录数
 		org_nums = all_orgs.count()
@@ -199,12 +205,18 @@ class TeacherListView(View):
 	def get(self, request):
 		all_teacher_records = Teacher.objects.all()
 		hot_teacher_records = Teacher.objects.all().order_by("-fav_nums")[:3]
-		teacher_nums = all_teacher_records.count()
 
 		# 讲师列表记录排序
 		sort_by = request.GET.get('sort_by', '')
 		if sort_by == 'hot':
 			all_teacher_records = all_teacher_records.order_by('-click_nums')
+
+		# 根据搜索关键词对讲师记录进行筛选
+		search_keyword = request.GET.get('keywords', '')
+		if search_keyword:
+			all_teacher_records = all_teacher_records.filter(Q(name__icontains=search_keyword)|Q(working_company__icontains=search_keyword)|Q(working_position__icontains=search_keyword))
+
+		teacher_nums = all_teacher_records.count()
 
 		# 对讲师记录进行分页处理
 		try:

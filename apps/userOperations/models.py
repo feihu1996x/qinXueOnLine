@@ -1,8 +1,6 @@
 from datetime import datetime
 
-
 from django.db import models
-
 
 from users.models import UserProfile
 from courses.models import Course
@@ -34,7 +32,7 @@ class CourseComments(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.user.comment_content
+        return self.comment_content
 
 
 class UserFavorite(models.Model):
@@ -55,7 +53,7 @@ class UserMessage(models.Model):
     user = models.IntegerField(default=0, verbose_name='接收用户') # 当该字段值为0时，表明是发给所有用户的消息，否则是发给指定用户id的消息
     message_content = models.CharField(max_length=500, verbose_name='消息内容')
     has_read = models.BooleanField(default=False, verbose_name='是否已读')
-    add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
         verbose_name = '用户消息'

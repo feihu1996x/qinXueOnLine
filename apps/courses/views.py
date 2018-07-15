@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from django.db.models import Q
 
 from courses.models import Course, CourseResource, Video
 from userOperations.models import UserFavorite, CourseComments, UserCourse
@@ -23,6 +24,16 @@ class CourseListView(View):
 			all_course_records = all_course_records.order_by('-students')
 		if sort_by == 'click_nums':
 			all_course_records = all_course_records.order_by('-click_nums')
+
+		# 根据搜索关键词对课程记录进行筛选
+		"""
+		'name__icontains=search_keywords'的意思是，
+		当name字段的值包含search_keywords时满足条件，
+		'icontains'中的'i'表示不区分大小写
+		"""
+		search_keywords = request.GET.get('keywords', '')
+		if search_keywords:
+			all_course_records = all_course_records.filter(Q(name__icontains=search_keywords)|Q(desc__icontains=search_keywords)|Q(detail__icontains=search_keywords))
 
 		# 对课程记录进行分页处理
 		try:

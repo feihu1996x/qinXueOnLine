@@ -36,6 +36,9 @@ def send_email(email, send_type='register'):
 	elif send_type == 'forget':
 		email_title = '勤学在线网密码重置链接'
 		email_body = '请点击链接重置您的密码: http://127.0.0.1:8000/resetpwd/{0}'.format(code)
+	elif send_type == 'update':
+		email_title = '勤学在线网邮箱修改验证码'
+		email_body = '尊敬的勤学网用户，您好，您刚刚在勤学网进行了绑定邮箱的修改操作，为确认修改者是您本人，现将邮箱验证码发送到您的账户: {0}'.format(code)
 
 	send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])
 	if send_status:

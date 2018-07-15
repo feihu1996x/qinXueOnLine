@@ -23,11 +23,20 @@ class UserProfile(AbstractUser):
     def __str__(self):
         return self.username
 
+    def get_unread_message_nums(self):
+        """
+        获取用户未读消息的数量
+        :return:
+        """
+        from userOperations.models import UserMessage
+        from django.db.models import Q
+        return UserMessage.objects.filter(Q(user=self.id)|Q(user=0),Q(has_read=False)).count()
+
 
 class EmailVerifyRecord(models.Model):
     code = models.CharField(max_length=20, verbose_name='验证码')
     email = models.EmailField(max_length=50, verbose_name='邮箱')
-    send_type = models.CharField(max_length=10, choices=(('register', '注册'), ('forget', '找回密码')), verbose_name='验证类型')
+    send_type = models.CharField(max_length=10, choices=(('register', '注册'), ('forget', '找回密码'), ('update', '更新邮箱')), verbose_name='验证类型')
     send_time = models.DateField(default=datetime.now, verbose_name='发送时间')
 
     class Meta:
