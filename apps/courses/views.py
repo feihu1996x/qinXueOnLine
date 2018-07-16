@@ -92,7 +92,9 @@ class CourseChapterView(LoginRequiredMixin, View):
 	def get(self, request, course_id):
 		course_record = Course.objects.get(id=int(course_id))
 
+		# 增加课程的学习人数
 		course_record.students += 1
+		course_record.save()
 
 		# 将当前登录用户和当前学习的课程关联起来
 		user_course_records =  UserCourse.objects.filter(user=request.user, course=course_record)

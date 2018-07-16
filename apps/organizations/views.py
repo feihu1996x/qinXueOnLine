@@ -89,6 +89,10 @@ class OrgHomeView(View):
 		all_course_records = course_org_record.course_set.all()[:3]
 		all_teacher_records = course_org_record.teacher_set.all()[:1]
 
+		# 增加授课机构的点击数
+		course_org_record.click_nums += 1
+		course_org_record.save()
+
 		# 判断用户的收藏状态
 		has_fav = False
 		if request.user.is_authenticated:  # 如果用户已经登录
@@ -188,6 +192,27 @@ class AddFavView(View):
 		exist_records = UserFavorite.objects.filter(user=request.user, fav_id=fav_id, fav_type=fav_type)
 		if exist_records:  # 用户已经收藏
 			exist_records.delete()  # 删除记录，即取消收藏
+
+			# 减少对应条目的收藏数
+			if fav_type == 1:
+				course_record = Course.objects.get(id=fav_id)
+				course_record.fav_nums -= 1
+				if course_record.fav_nums < 0:
+					course_record.fav_nums = 0
+				course_record.save()
+			elif fav_type == 2:
+				course_org_record = CourseOrg.objects.get(id=fav_id)
+				course_org_record.fav_nums -= 1
+				if course_org_record.fav_nums < 0:
+					course_org_record.fav_nums = 0
+				course_org_record.save()
+			elif fav_type == 3:
+				teacher_record = Teacher.objects.get(id=fav_id)
+				teacher_record.fav_nums -= 1
+				if teacher_record.fav_nums < 0:
+					teacher_record.fav_nums = 0
+				teacher_record.save()
+
 			return HttpResponse('{"status": 0, "msg": "收藏"}', content_type='application/json')
 		else:
 			user_fav_model = UserFavorite()
@@ -195,6 +220,21 @@ class AddFavView(View):
 			user_fav_model.fav_type = fav_type
 			user_fav_model.user = request.user
 			user_fav_model.save()
+
+			# 增加对应条目的收藏数
+			if fav_type == 1:
+				course_record = Course.objects.get(id=fav_id)
+				course_record.fav_nums += 1
+				course_record.save()
+			elif fav_type == 2:
+				course_org_record = CourseOrg.objects.get(id=fav_id)
+				course_org_record.fav_nums += 1
+				course_org_record.save()
+			elif fav_type == 3:
+				teacher_record = Teacher.objects.get(id=fav_id)
+				teacher_record.fav_nums += 1
+				teacher_record.save()
+
 			return HttpResponse('{"status": 0, "msg": "已收藏"}', content_type='application/json')
 
 
@@ -242,6 +282,10 @@ class TeacherDetailView(View):
 		teacher_record = Teacher.objects.get(id=int(teacher_id))
 		all_teacher_courses = Course.objects.filter(teacher=teacher_record)
 		hot_teacher_records = Teacher.objects.all().order_by("-fav_nums")[:3]
+
+		# 增加讲师的点击数
+		teacher_record.click_nums += 1
+		teacher_record.save()
 
 		# 判断讲师或者机构的收藏状态
 		teacher_has_fav = False

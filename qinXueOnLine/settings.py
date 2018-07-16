@@ -26,9 +26,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 SECRET_KEY = ')wvrr2s_58aj@v^5_2ft=$nt*+@+3!r!fc$7euizu-z#r!3ggc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -137,11 +137,13 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+if DEBUG:  # 开发环境
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+else:  # 生产环境
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 重载用户认证机制
 AUTHENTICATION_BACKENDS = {
@@ -159,3 +161,4 @@ EMAIL_FROM = EMAIL_HOST_USER
 # 上传文件根目录设置
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

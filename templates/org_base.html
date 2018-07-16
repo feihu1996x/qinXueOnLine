@@ -41,7 +41,7 @@
                                 </dl>
                                 <div class="btn">
 	                                <a class="personcenter fl" href="{% url 'user:user_info' %}">进入个人中心</a>
-	                                <a class="fr" href="/logout/">退出</a>
+	                                <a class="fr" href="{% url 'logout' %}">退出</a>
                                 </div>
                             </div>
                         </div>
@@ -161,18 +161,15 @@ function add_fav(current_elem, fav_id, fav_type){
         },
     });
 }
-
-$(document).ready(function() {
-    $('.collectionbtn').on('click', function(){
-        add_fav($(this), {{ course_org_record.id }}, 2);
-    });
+$('.collectionbtn').on('click', function(){
+    add_fav($(this), {{ course_org_record.id }}, 2);
 });
 $(function(){
     var $precision = $('.precision'),
         score = $precision.attr('data-star-scope'),
         option =  {
                     half		: true,
-                    path		: '{% static "images/" %}',
+                    path		: '{% static "images" %}',
                     precision	: true,
                     size		: 24,
                     starOff		: 'g_star.png',

@@ -3,15 +3,17 @@ import json
 from django.shortcuts import render
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auto_login
+from django.contrib.auth import logout
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from django.urls import reverse
 
 from users.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserImageUploadModelForm, UserModifyPwdForm, UserInfoModelForm
-from users.models import UserProfile, EmailVerifyRecord
+from users.models import UserProfile, EmailVerifyRecord, Banner
 from userOperations.models import UserCourse, UserFavorite, UserMessage
 from utils.send_email import send_email
 from utils.mixin_utils import LoginRequiredMixin
@@ -86,7 +88,7 @@ class LoginView(View):
 			if user_model is not None:  # 用户登录认证通过
 				if user_model.is_active:  # 用户已经激活
 					auto_login(request, user_model)
-					return render(request, 'index.html')
+					return HttpResponseRedirect(reverse('index'))
 				else:  # 用户未激活
 					return render(request, 'login.html', {'msg': '用户尚未激活！', 'login_form': login_form})
 			else:  # 用户登录认证未通过
@@ -94,6 +96,15 @@ class LoginView(View):
 		else:
 			# 用户登录提交表单字段验证失败
 			return render(request, 'login.html', {'login_form': login_form})
+
+
+class LogoutView(View):
+	"""
+	用户退出登录请求处理类
+	"""
+	def get(self, request):
+		logout(request)
+		return HttpResponseRedirect(reverse('index'))  # 重定向到index页面, reverse函数用于将url名称反向解析成真实的url
 
 
 class RegisterView(View):
@@ -359,3 +370,42 @@ class UserMessageView(LoginRequiredMixin, View):
 		return render(request, 'usercenter-message.html', {
 			'all_user_messages': all_user_messages
 		})
+
+
+class IndexView(View):
+	"""
+	勤学在线网首页请求处理类
+	"""
+	def get(self, request):
+		all_bannner_records = Banner.objects.all().order_by('index')  # 首页大轮播图
+		all_not_banner_course_records = Course.objects.filter(is_banner=False)[:6]  # 非轮播图课程
+		all_banner_course_records = Course.objects.filter(is_banner=True)[:3]  # 轮播图课程（首页中间）
+		all_course_org_records = CourseOrg.objects.all()[:15]
+		return render(request, 'index.html', {
+			'all_bannner_records': all_bannner_records,
+			'all_not_banner_course_records': all_not_banner_course_records,
+			'all_banner_course_records': all_banner_course_records,
+			'all_course_org_records': all_course_org_records
+		})
+
+# 404,403,500等错误请求处理函数
+# Django 2.0版本貌似已经不需要再自定义处理函数,只需要准备好相应的页面即可
+
+# def page_not_found(request):
+# 	"""
+# 	404错误请求处理函数
+# 	:param request:
+# 	:return:
+# 	"""
+# 	from django.shortcuts import render_to_response
+# 	response = render_to_response('404.html', {})
+# 	response.status_code = 404
+# 	return response
+
+
+# def page_error(request):
+# 	# 500错误请求处理函数
+# 	from django.shortcuts import render_to_response
+# 	response = render_to_response('500.html', {})
+# 	response.status_code = 500
+# 	return response
