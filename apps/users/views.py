@@ -62,6 +62,30 @@ class CustomBackend(ModelBackend):
 # 		return render(request, 'login.html', {})
 
 
+# class UnSafeLoginView(View):
+# 	"""
+# 	不安全的登录机制演示（SQL注入）
+# 	"""
+# 	def get(self, request):
+# 		return render(request, 'login.html', {})
+#
+# 	def post(self, request):
+# 		username = request.POST.get('username', '')
+# 		password = request.POST.get('password', '')
+#
+# 		import MySQLdb
+# 		conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='9f%IFhJ618', db='qinXueOnLine', charset='utf8')
+# 		cursor = conn.cursor()
+# 		# 当不法分子提交过来的表单中的username值为"' OR 1=1#"时就会跳过用户认证，即构成了SQL注入，
+# 		select_sql = "select * from users_userprofile where username='{0}' and password='{1}'".format(username, password)
+# 		result = cursor.execute(select_sql)
+# 		if result:
+# 			print("查询到用户")
+# 		else:
+# 			print("没有查询到用户")
+# 		return HttpResponseRedirect(reverse('index'))
+
+
 class LoginView(View):
 	"""
 	用户登录请求处理类
