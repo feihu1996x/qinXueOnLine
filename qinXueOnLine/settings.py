@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'captcha',
-    'pure_pagination'
+    'pure_pagination',
+    'DjangoUeditor'
 ]
 # 重载默认的auth_user表
 AUTH_USER_MODEL = 'users.UserProfile'

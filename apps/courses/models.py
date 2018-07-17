@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.db import models
 from organizations.models import CourseOrg, Teacher
+from DjangoUeditor.models import UEditorField
 
 
 # Create your models here.
@@ -9,7 +10,13 @@ class Course(models.Model):
     course_org = models.ForeignKey(CourseOrg, verbose_name='课程机构', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50, verbose_name='课程名称')
     desc = models.TextField(verbose_name='课程描述')
-    detail = models.CharField(verbose_name='课程详情', max_length=500)
+    # detail = models.TextField(verbose_name='课程详情', max_length=500)
+    detail = UEditorField(verbose_name='课程详情',
+                          width=600,
+                          height=300,
+                          imagePath='resource/ueditor/%(year)/%(month)/%(day)',
+                          filePath='resource/ueditor/%(year)/%(month)/%(day)',
+                          default='')  # 将detail字段展示成富文本
     level = models.CharField(choices=(('primary', '初级'), ('intermediate', '中级'), ('senior', '高级')), max_length=20, verbose_name='难度')
     learning_time = models.IntegerField(default=0, verbose_name='学习时长（分钟）')
     students = models.IntegerField(default=0, verbose_name='学习人数')
@@ -25,7 +32,7 @@ class Course(models.Model):
     is_banner = models.BooleanField(default=False, verbose_name='是否轮播')
 
     class Meta:
-        verbose_name = '课程基本信息'
+        verbose_name = '课程'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -37,6 +44,7 @@ class Course(models.Model):
         :return:
         """
         return self.chapter_set.all().count()
+    get_chapter_nums.short_description = '章节数'
 
     def get_course_users(self):
         """
@@ -52,6 +60,23 @@ class Course(models.Model):
         """
         return self.chapter_set.all()
 
+    def go_to(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe('<a href="http://www.feihu1996.cn">跳转</a>')
+    go_to.short_description = '跳转'
+
+
+class BannerCourse(Course):
+    """
+    对轮播图课程和非轮播图课程分开管理，
+    在xadmin中对应不同的管理器，
+    但在数据库中其实是同一张表
+    """
+    class Meta:
+        verbose_name = '轮播图课程'
+        verbose_name_plural = verbose_name
+        proxy = True  # 只有当proxy值为True时，此model才不会单独在数据库中再生成一张表
+
 
 class Chapter(models.Model):
     course = models.ForeignKey(Course, verbose_name='课程', on_delete=models.CASCADE)
@@ -59,7 +84,7 @@ class Chapter(models.Model):
     add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
-        verbose_name = '章节基本信息'
+        verbose_name = '章节'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -77,7 +102,7 @@ class Video(models.Model):
     video_times = models.IntegerField(default=0, verbose_name='视频时长')
 
     class Meta:
-        verbose_name = '视频基本信息'
+        verbose_name = '视频'
         verbose_name_plural = verbose_name
 
     def __str__(self):

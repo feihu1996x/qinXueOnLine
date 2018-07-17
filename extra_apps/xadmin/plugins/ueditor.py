@@ -1,6 +1,11 @@
-# -*- coding: utf-8 -*-
+"""
+@file: ueditor.py
+@brief: 自定义xadmin插件——集成ueditor富文本
+@author: feihu1996.cn
+@date: 18-7-17 下午1:41
+@version: 1.0
+"""
 
-__author__ = 'bobby'
 
 import xadmin
 from xadmin.views import BaseAdminPlugin, CreateAdminView, ModelFormAdminView, UpdateAdminView
@@ -15,8 +20,8 @@ class XadminUEditorWidget(UEditorWidget):
         self.Media.js = None
         super(XadminUEditorWidget,self).__init__(kwargs)
 
-class UeditorPlugin(BaseAdminPlugin):
 
+class UeditorPlugin(BaseAdminPlugin):
     def get_field_style(self, attrs, db_field, style, **kwargs):
         if style == 'ueditor':
             if isinstance(db_field, UEditorField):
@@ -28,9 +33,12 @@ class UeditorPlugin(BaseAdminPlugin):
         return attrs
 
     def block_extrahead(self, context, nodes):
-        js = '<script type="text/javascript" src="%s"></script>' % (settings.STATIC_URL + "ueditor/ueditor.config.js")         #自己的静态目录
-        js += '<script type="text/javascript" src="%s"></script>' % (settings.STATIC_URL + "ueditor/ueditor.all.min.js")   #自己的静态目录
+        js = '<script type="text/javascript" src="%s"></script>' % \
+             (settings.STATIC_URL + "ueditor/ueditor.config.js")  # 自己的静态目录
+        js += '<script type="text/javascript" src="%s"></script>' % \
+              (settings.STATIC_URL + "ueditor/ueditor.all.min.js")  # 自己的静态目录
         nodes.append(js)
 
-xadmin.site.register_plugin(UeditorPlugin, UpdateAdminView)
-xadmin.site.register_plugin(UeditorPlugin, CreateAdminView)
+
+xadmin.site.register_plugin(UeditorPlugin, UpdateAdminView)  # 修改页面
+xadmin.site.register_plugin(UeditorPlugin, CreateAdminView)  # 新增页面

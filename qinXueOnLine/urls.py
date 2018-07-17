@@ -48,7 +48,10 @@ urlpatterns = [
     url(r'^user/', include(('users.urls', 'users'), namespace="user")),
 
     # 上传文件访问url配置
-    url(r'media/(?P<path>.*)$', serve,  {'document_root': settings.MEDIA_ROOT})
+    url(r'media/(?P<path>.*)$', serve,  {'document_root': settings.MEDIA_ROOT}),
+
+    # 富文本相关url
+    url(r'^ueditor/',include(('DjangoUeditor.urls', 'ueditor'), namespace="ueditor")),
 ]
 
 if not settings.DEBUG:  # 生产环境

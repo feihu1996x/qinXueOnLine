@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-    <section>
+<section>
 	<div class="wp">
 		<div class="list" style="margin-top:0;">
 			<div class="left layout">
@@ -88,12 +88,12 @@
                     {% for hot_course_record in hot_course_records %}
                         <dl>
                             <dt>
-                                <a target="_blank" href="">
+                                <a target="_blank" href="{% url 'course:course_detail' hot_course_record.id %}">
                                     <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ hot_course_record.cover_image }}"/>
                                 </a>
                             </dt>
                             <dd>
-                                <a target="_blank" href=""><h2>{{ hot_course_record.name }}</h2></a>
+                                <a target="_blank" href="{% url 'course:course_detail' hot_course_record.id %}"><h2>{{ hot_course_record.name }}</h2></a>
                                 <span class="fl">难度：<i class="key">{{ hot_course_record.get_level_display }}</i></span>
                             </dd>
                         </dl>
