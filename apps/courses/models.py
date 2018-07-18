@@ -14,8 +14,8 @@ class Course(models.Model):
     detail = UEditorField(verbose_name='课程详情',
                           width=600,
                           height=300,
-                          imagePath='resource/ueditor/%(year)/%(month)/%(day)',
-                          filePath='resource/ueditor/%(year)/%(month)/%(day)',
+                          imagePath='resource/ueditor/',
+                          filePath='resource/ueditor/',
                           default='')  # 将detail字段展示成富文本
     level = models.CharField(choices=(('primary', '初级'), ('intermediate', '中级'), ('senior', '高级')), max_length=20, verbose_name='难度')
     learning_time = models.IntegerField(default=0, verbose_name='学习时长（分钟）')

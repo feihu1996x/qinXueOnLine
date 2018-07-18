@@ -163,4 +163,3 @@ EMAIL_FROM = EMAIL_HOST_USER
 # 上传文件根目录设置
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
