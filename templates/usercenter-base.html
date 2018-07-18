@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/queryCity/css/cityLayout.css' %}">
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/lq.datetimepick.css' %}"/>
@@ -81,10 +82,10 @@
 	<div class="wp list personal_list">
 	<div class="left">
         <ul>
-            <li class="active2"><a href="{% url 'user:user_info' %}">个人资料</a></li>
-            <li ><a href="{% url 'user:user_my_course' %}">我的课程</a></li>
-            <li ><a href="{% url 'user:user_fav_org' %}">我的收藏</a></li>
-            <li >
+            <li {% if request.path == '/user/info/' %}class="active2"{% endif %}><a href="{% url 'user:user_info' %}">个人资料</a></li>
+            <li {% if request.path == '/user/my_course/' %}class="active2"{% endif %}><a href="{% url 'user:user_my_course' %}">我的课程</a></li>
+            <li {% if request.path == '/user/fav/org/' %}class="active2"{% endif %}><a href="{% url 'user:user_fav_org' %}">我的收藏</a></li>
+            <li {% if request.path == '/user/message/' %}class="active2"{% endif %}>
                 <a href="{% url 'user:user_message' %}" style="position: relative;">
                     我的消息
                 </a>

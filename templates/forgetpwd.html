@@ -5,9 +5,10 @@
 	<meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
-	<title>慕学网首页</title>
+	<title>勤学网-找回密码</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
 </head>
 <body>
 <!--提示弹出框-->
@@ -47,7 +48,7 @@
 <header>
     <div class="c-box fff-box">
         <div class="wp header-box">
-            <p class="fl hd-tips">慕学网，在线学习平台！</p>
+            <p class="fl hd-tips">勤学网，在线学习平台！</p>
             <ul class="fr hd-bar">
                 <li>服务电话：<span>33333333</span></li>
                 <li><a href="{% url 'login' %}">[登录]</a></li>
@@ -67,9 +68,9 @@
             <div class="fl slide">
                 <div class="imgslide">
                     <ul class="imgs">
-                        <li><a href=""><img width="483" height="472" src="{% static 'images/57a801860001c34b12000460.jpg' %}" /></a></li>
-                        <li><a href=""><img width="483" height="472" src="{% static 'images/57a801860001c34b12000460.jpg' %}" /></a></li>
-                        <li><a href=""><img width="483" height="472" src="{% static 'images/57a801860001c34b12000460.jpg' %}" /></a></li>
+                        {% for banner_course_record in all_banner_course_records %}
+                        <li><a href="{% url 'course:course_detail' banner_course_record.id %}"><img width="483" height="472" src="{{ MEDIA_URL }}{{ banner_course_record.cover_image }}" /></a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="unslider-arrow prev"></div>
@@ -80,7 +81,7 @@
                 <form id="jsFindPwdForm" method="post" action="{% url 'forgetpwd' %}" autocomplete="off">
                     <div class="form-group marb20 {% if forget_pwd_form.errors.email %}errorput{% endif %}">
                         <label>帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-                        <input type="text" id="account" name="email" value="{{ forget_pwd_form.email.value }}" placeholder="邮箱" />
+                        <input type="text" id="account" name="email" value="{{ forget_pwd_form.email.value|default_if_none:'' }}" placeholder="邮箱" />
                     </div>
                     <div class="form-group captcha1 marb38">
                         <label>验&nbsp;证&nbsp;码</label>

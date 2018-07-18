@@ -492,7 +492,7 @@ caption {
 }
 
 .header .top .userdetail .btn a:hover {
-    background: #4FB137;
+    background: rgb(255, 0, 255);
 }
 
 .header .top .userdetail .btn a.fl {
@@ -562,11 +562,11 @@ caption {
 }
 
 .loginbtn:hover {
-    background: #4FB137;
+    background: rgb(255, 0, 255);
 }
 
 .registerbtn:hover {
-    background: #4FB137;
+    background: rgb(255, 0, 255);
 }
 
 .dialog-open,
@@ -852,7 +852,7 @@ textarea:focus {
 }
 
 .dialogbox .btn {
-    color: #4FB137;
+    color: rgb(255, 0, 255);
     cursor: pointer;
 }
 
@@ -878,7 +878,7 @@ textarea:focus {
 }
 
 .dialogbox .button:hover {
-    background: #4FB137;
+    background: rgb(255, 0, 255);
 }
 
 .registbox {
@@ -895,7 +895,7 @@ textarea:focus {
 }
 
 .registbox .tab .active {
-    color: #4FB137;
+    color: rgb(255, 0, 255);
 }
 
 .registbox .tab div {
@@ -933,7 +933,7 @@ textarea:focus {
 }
 
 .registbox .box .sendcode:hover {
-    background: #4FB137;
+    background: rgb(255, 0, 255);
 }
 
 .registbox .valcode {
@@ -944,7 +944,7 @@ textarea:focus {
     right: 0;
     top: -90px;
     background: #fff;
-    border: 1px solid #4FB137;
+    border: 1px solid rgb(255, 0, 255);
     z-index: 100;
     overflow: hidden;
 }
@@ -995,7 +995,7 @@ textarea:focus {
 }
 
 .dialogbox .captcha {
-    background: #4FB137;
+    background: rgb(255, 0, 255);
     position: absolute;
     right: 5px;
     top: 5px;
@@ -1399,7 +1399,7 @@ textarea:focus {
 }
 
 .header .nav a:hover, .header .nav .active {
-    background: #3D9328;
+    background: rgb(255, 0, 255);
 }
 
 .header .nav li:last-child a {
@@ -1632,7 +1632,7 @@ textarea:focus {
 
 .banner .fr .head {
     height: 78px;
-    background: #4fb137;
+    background: rgb(255, 0, 255);
 }
 
 .banner .fr .center {
@@ -3927,7 +3927,7 @@ footer .footer .line {
 }
 
 .list.share_owner .keep_diary .btn {
-    background: #4fb137;
+    background: rgb(255, 0, 255);
     height: 50px;
     line-height: 50px;
     text-align: center;
@@ -5021,7 +5021,7 @@ footer .footer .line {
 .companyright .head {
     text-align: center;
     color: #fff;
-    background: #4fb137;
+    background: rgb(255, 0, 255);
     padding: 0;
     margin: 0;
     font-size: 24px;
@@ -8449,7 +8449,7 @@ table .upload-btn {
 }
 
 .btn-green:hover {
-    background: #5dbf45;
+    background: rgb(250, 0, 250);
 }
 
 .btn-w100 {

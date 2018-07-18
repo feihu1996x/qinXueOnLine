@@ -5,9 +5,10 @@
 	<meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
-	<title>慕学在线网登录</title>
+	<title>勤学在线网登录</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
 </head>
 <body>
 <div class="dialog" id="jsDialog">
@@ -37,7 +38,7 @@
 <header>
     <div class="c-box fff-box">
         <div class="wp header-box">
-            <p class="fl hd-tips">慕学在线网，在线学习平台！</p>
+            <p class="fl hd-tips">勤学在线网，在线学习平台！</p>
             <ul class="fr hd-bar">
                 <li>服务电话：<span>33333333</span></li>
                 <li class="active"><a href="{% url 'login' %}">[登录]</a></li>
@@ -57,9 +58,9 @@
             <div class="fl slide">
                 <div class="imgslide">
                     <ul class="imgs">
-                            <li><a href=""><img width="483" height="472" src="{% static 'images/mysql.jpg' %}" /></a></li>
-                            <li><a href=""><img width="483" height="472" src="{% static 'images/mysql.jpg' %}" /></a></li>
-                            <li><a href=""><img width="483" height="472" src="{% static 'images/mysql.jpg' %}" /></a></li>
+                            {% for banner_record_course in all_banner_course_records %}
+                            <li><a href="{% url 'course:course_detail' banner_record_course.id %}"><img width="483" height="472" src="{{ MEDIA_URL }}{{ banner_record_course.cover_image }}" /></a></li>
+                            {% endfor %}
                     </ul>
                 </div>
                 <div class="unslider-arrow prev"></div>
@@ -84,7 +85,7 @@
                      <input class="btn btn-green" id="jsLoginBtn" type="submit" value="立即登录 > " />
                      {% csrf_token %}
                 </form>
-                <p class="form-p">没有慕学在线网帐号？<a href="{% url 'register' %}">[立即注册]</a></p>
+                <p class="form-p">没有勤学在线网帐号？<a href="{% url 'register' %}">[立即注册]</a></p>
             </div>
         </div>
     </div>
