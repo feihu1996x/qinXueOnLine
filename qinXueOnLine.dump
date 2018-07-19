@@ -1,0 +1,894 @@
+-- MySQL dump 10.13  Distrib 8.0.11, for Linux (x86_64)
+--
+-- Host: localhost    Database: qinXueOnLine
+-- ------------------------------------------------------
+-- Server version	8.0.11
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8mb4 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `auth_group`
+--
+
+DROP TABLE IF EXISTS `auth_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group`
+--
+
+LOCK TABLES `auth_group` WRITE;
+/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_group_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `auth_group_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group_permissions`
+--
+
+LOCK TABLES `auth_group_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_permission`
+--
+
+DROP TABLE IF EXISTS `auth_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
+  CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+LOCK TABLES `auth_permission` WRITE;
+/*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add permission',2,'add_permission'),(5,'Can change permission',2,'change_permission'),(6,'Can delete permission',2,'delete_permission'),(7,'Can add group',3,'add_group'),(8,'Can change group',3,'change_group'),(9,'Can delete group',3,'delete_group'),(10,'Can add content type',4,'add_contenttype'),(11,'Can change content type',4,'change_contenttype'),(12,'Can delete content type',4,'delete_contenttype'),(13,'Can add session',5,'add_session'),(14,'Can change session',5,'change_session'),(15,'Can delete session',5,'delete_session'),(16,'Can add 用户信息',6,'add_userprofile'),(17,'Can change 用户信息',6,'change_userprofile'),(18,'Can delete 用户信息',6,'delete_userprofile'),(19,'Can add 轮播图',7,'add_banner'),(20,'Can change 轮播图',7,'change_banner'),(21,'Can delete 轮播图',7,'delete_banner'),(22,'Can add 邮箱验证码',8,'add_emailverifyrecord'),(23,'Can change 邮箱验证码',8,'change_emailverifyrecord'),(24,'Can delete 邮箱验证码',8,'delete_emailverifyrecord'),(25,'Can add 章节基本信息',9,'add_chapter'),(26,'Can change 章节基本信息',9,'change_chapter'),(27,'Can delete 章节基本信息',9,'delete_chapter'),(28,'Can add 课程基本信息',10,'add_course'),(29,'Can change 课程基本信息',10,'change_course'),(30,'Can delete 课程基本信息',10,'delete_course'),(31,'Can add 课程资源',11,'add_courseresource'),(32,'Can change 课程资源',11,'change_courseresource'),(33,'Can delete 课程资源',11,'delete_courseresource'),(34,'Can add 视频基本信息',12,'add_video'),(35,'Can change 视频基本信息',12,'change_video'),(36,'Can delete 视频基本信息',12,'delete_video'),(37,'Can add 城市',13,'add_city'),(38,'Can change 城市',13,'change_city'),(39,'Can delete 城市',13,'delete_city'),(40,'Can add 课程机构',14,'add_courseorg'),(41,'Can change 课程机构',14,'change_courseorg'),(42,'Can delete 课程机构',14,'delete_courseorg'),(43,'Can add 教师',15,'add_teacher'),(44,'Can change 教师',15,'change_teacher'),(45,'Can delete 教师',15,'delete_teacher'),(46,'Can add 课程评论',16,'add_coursecomments'),(47,'Can change 课程评论',16,'change_coursecomments'),(48,'Can delete 课程评论',16,'delete_coursecomments'),(49,'Can add 用户咨询',17,'add_userask'),(50,'Can change 用户咨询',17,'change_userask'),(51,'Can delete 用户咨询',17,'delete_userask'),(52,'Can add 用户课程',18,'add_usercourse'),(53,'Can change 用户课程',18,'change_usercourse'),(54,'Can delete 用户课程',18,'delete_usercourse'),(55,'Can add 用户收藏',19,'add_userfavorite'),(56,'Can change 用户收藏',19,'change_userfavorite'),(57,'Can delete 用户收藏',19,'delete_userfavorite'),(58,'Can add 用户消息',20,'add_usermessage'),(59,'Can change 用户消息',20,'change_usermessage'),(60,'Can delete 用户消息',20,'delete_usermessage'),(61,'Can view log entry',1,'view_logentry'),(62,'Can view group',3,'view_group'),(63,'Can view permission',2,'view_permission'),(64,'Can view content type',4,'view_contenttype'),(65,'Can view 章节基本信息',9,'view_chapter'),(66,'Can view 课程基本信息',10,'view_course'),(67,'Can view 课程资源',11,'view_courseresource'),(68,'Can view 视频基本信息',12,'view_video'),(69,'Can view 城市',13,'view_city'),(70,'Can view 课程机构',14,'view_courseorg'),(71,'Can view 教师',15,'view_teacher'),(72,'Can view session',5,'view_session'),(73,'Can view 课程评论',16,'view_coursecomments'),(74,'Can view 用户咨询',17,'view_userask'),(75,'Can view 用户课程',18,'view_usercourse'),(76,'Can view 用户收藏',19,'view_userfavorite'),(77,'Can view 用户消息',20,'view_usermessage'),(78,'Can view 轮播图',7,'view_banner'),(79,'Can view 邮箱验证码',8,'view_emailverifyrecord'),(80,'Can view 用户信息',6,'view_userprofile'),(81,'Can add Bookmark',21,'add_bookmark'),(82,'Can change Bookmark',21,'change_bookmark'),(83,'Can delete Bookmark',21,'delete_bookmark'),(84,'Can add User Setting',22,'add_usersettings'),(85,'Can change User Setting',22,'change_usersettings'),(86,'Can delete User Setting',22,'delete_usersettings'),(87,'Can add User Widget',23,'add_userwidget'),(88,'Can change User Widget',23,'change_userwidget'),(89,'Can delete User Widget',23,'delete_userwidget'),(90,'Can add log entry',24,'add_log'),(91,'Can change log entry',24,'change_log'),(92,'Can delete log entry',24,'delete_log'),(93,'Can view Bookmark',21,'view_bookmark'),(94,'Can view log entry',24,'view_log'),(95,'Can view User Setting',22,'view_usersettings'),(96,'Can view User Widget',23,'view_userwidget'),(97,'Can add captcha store',25,'add_captchastore'),(98,'Can change captcha store',25,'change_captchastore'),(99,'Can delete captcha store',25,'delete_captchastore'),(100,'Can view captcha store',25,'view_captchastore'),(101,'Can add 轮播图课程',10,'add_bannercourse'),(102,'Can change 轮播图课程',10,'change_bannercourse'),(103,'Can delete 轮播图课程',10,'delete_bannercourse'),(104,'Can view 轮播图课程',26,'view_bannercourse');
+/*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `captcha_captchastore`
+--
+
+DROP TABLE IF EXISTS `captcha_captchastore`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `captcha_captchastore` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `challenge` varchar(32) NOT NULL,
+  `response` varchar(32) NOT NULL,
+  `hashkey` varchar(40) NOT NULL,
+  `expiration` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hashkey` (`hashkey`)
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `captcha_captchastore`
+--
+
+LOCK TABLES `captcha_captchastore` WRITE;
+/*!40000 ALTER TABLE `captcha_captchastore` DISABLE KEYS */;
+INSERT INTO `captcha_captchastore` VALUES (70,'GLWX','glwx','cde47f019cc03abfa0f5c569b9798d4f639675fd','2018-07-15 06:44:16.924188'),(71,'SAMZ','samz','bdc87cbde26af0fbed12a10992bebabd789509a8','2018-07-15 06:44:30.100150'),(72,'BTNY','btny','f94fabf28dc5eff3745c241ff22bc743e2631af8','2018-07-15 06:44:32.112097'),(74,'OBRP','obrp','ff4f1c2b38710c6fb531a828ab91bc6f0de8a363','2018-07-18 17:27:47.025465'),(75,'TQMZ','tqmz','0f3892ef566bb744d1b5f796583a070eb4c0515f','2018-07-18 17:42:46.007261'),(76,'GCDG','gcdg','0011571fda51bf4c80ae31a1e4b29a63380c9311','2018-07-18 17:44:36.188389'),(77,'XFEP','xfep','b6ca976fc3109cae681ba72e967a2c0bdde6efb2','2018-07-18 19:01:38.923347'),(78,'FCEM','fcem','4f0d856ab67c10c0c92f30bd75b37ee4a34ff7b9','2018-07-18 19:06:37.283865'),(79,'OSLR','oslr','7cdb2de1d90635b6912c34e6c6f2da49abc1deab','2018-07-18 19:11:02.805996'),(80,'GVGD','gvgd','61a57ff9b6add033076cd565974c3ecb6cfbc683','2018-07-18 19:13:08.251901'),(81,'YJKD','yjkd','4ec4ab243e90a1401cd2d1878b9285245d2120ed','2018-07-18 19:13:51.901370'),(82,'CWDF','cwdf','bcbb907a1178a0763823431e972d8fccdbf846b5','2018-07-18 19:14:13.257195'),(83,'SAAW','saaw','f47cdb26b3f5c06538130dafc517994019af8a2b','2018-07-18 19:15:09.374071'),(84,'MBXY','mbxy','1b969615030f51c0b42a479ac31e94893d61b846','2018-07-18 19:15:31.239865'),(85,'EYKG','eykg','d850f2fe0511f04aa86020b7a5c5dd7da3b292c8','2018-07-18 19:16:54.350655'),(86,'TESD','tesd','1ca0c3bc376503be9dccb28a51d638b8e9d94a45','2018-07-18 19:20:23.103703'),(87,'WTOP','wtop','2b95df67b8b88ae16f4a46a85d8ecc6bb5cfeb30','2018-07-18 19:20:54.532731'),(88,'HYIB','hyib','37cdf32422c7f0536fd6af47ddd2a17335d8d4c4','2018-07-18 19:21:58.295256'),(89,'QEJH','qejh','93c77d3e8524cdf3f1f545ef5837e325b474d406','2018-07-18 19:53:34.298627'),(90,'YKRE','ykre','9652c899b92ab7f591067a431d1ef4cdee6cfce7','2018-07-18 19:53:50.605499'),(91,'ERAB','erab','b35422393c120e80ed6deb4ca6eebc08fce98fa6','2018-07-18 19:54:09.087986'),(92,'MQHC','mqhc','90cdf91f3be01e1628d76be8a9c2f4ebb3dd5a0a','2018-07-18 19:54:30.563493'),(93,'LTHY','lthy','1247e9a614f165feae153d5703597f6235928849','2018-07-18 19:54:39.302133');
+/*!40000 ALTER TABLE `captcha_captchastore` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `courses_chapter`
+--
+
+DROP TABLE IF EXISTS `courses_chapter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `courses_chapter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `chapter_name` varchar(100) NOT NULL,
+  `add_time` date NOT NULL,
+  `course_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `courses_chapter_course_id_24d15099_fk_courses_course_id` (`course_id`),
+  CONSTRAINT `courses_chapter_course_id_24d15099_fk_courses_course_id` FOREIGN KEY (`course_id`) REFERENCES `courses_course` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `courses_chapter`
+--
+
+LOCK TABLES `courses_chapter` WRITE;
+/*!40000 ALTER TABLE `courses_chapter` DISABLE KEYS */;
+INSERT INTO `courses_chapter` VALUES (2,'第一章','2018-07-13',2),(3,'第二章','2018-07-13',2),(4,'第三章','2018-07-13',2),(5,'第一章','2018-07-13',3),(6,'第二章','2018-07-13',3),(7,'第三章','2018-07-13',3),(8,'第一章','2018-07-13',4),(9,'第二章','2018-07-13',4),(10,'第三章','2018-07-13',4),(11,'第四章','2018-07-13',4),(12,'第一章','2018-07-13',5),(13,'第二章','2018-07-13',5),(14,'第三章','2018-07-13',5),(15,'第四章','2018-07-13',5),(16,'第五章','2018-07-13',5),(17,'第一章','2018-07-13',6),(18,'第二章','2018-07-13',6),(19,'第一章','2018-07-13',7);
+/*!40000 ALTER TABLE `courses_chapter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `courses_course`
+--
+
+DROP TABLE IF EXISTS `courses_course`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `courses_course` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `desc` longtext NOT NULL,
+  `detail` longtext NOT NULL,
+  `level` varchar(20) NOT NULL,
+  `learning_time` int(11) NOT NULL,
+  `students` int(11) NOT NULL,
+  `fav_nums` int(11) NOT NULL,
+  `cover_image` varchar(100) NOT NULL,
+  `click_nums` int(11) NOT NULL,
+  `add_time` date NOT NULL,
+  `course_org_id` int(11) DEFAULT NULL,
+  `course_category` varchar(30) NOT NULL,
+  `course_tag` varchar(50) NOT NULL,
+  `teacher_id` int(11) DEFAULT NULL,
+  `course_target` varchar(300) NOT NULL,
+  `essential_skill` varchar(300) NOT NULL,
+  `is_banner` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `courses_course_course_org_id_4d2c4aab_fk_organizat` (`course_org_id`),
+  KEY `courses_course_teacher_id_846fa526_fk_organizations_teacher_id` (`teacher_id`),
+  CONSTRAINT `courses_course_course_org_id_4d2c4aab_fk_organizat` FOREIGN KEY (`course_org_id`) REFERENCES `organizations_courseorg` (`id`),
+  CONSTRAINT `courses_course_teacher_id_846fa526_fk_organizations_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `organizations_teacher` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `courses_course`
+--
+
+LOCK TABLES `courses_course` WRITE;
+/*!40000 ALTER TABLE `courses_course` DISABLE KEYS */;
+INSERT INTO `courses_course` VALUES (2,'潜行','高调与低调按住shift键来将低调模式切换成高调模式，当玩家处于低调模式时，动作和移动就会较慢，但比较不会引起注意。高调的动作较招摇，不过却会让平民提高警觉，甚至被误会成有敌意。','潜行','primary',10000,1,0,'resource/images/course_cover/2018/07/14.jpg',10,'2018-07-12',5,'刺客组织','入门',5,'当其他人受到法律和道德的束缚的时候,记住-万事皆允','当其他人盲目的追寻真相和真实的时候,记住-万物皆虚',0),(3,'掩体','在潜行模式中，移动到最近的矮墙或任何墙壁的角落来寻求掩护，也可以按下空格键直接进入掩体。食用盐提来阻断敌人的事先，而掩护时使用你的工具，就能避免敌人发现玩家。','掩体','primary',1000,0,0,'resource/images/course_cover/2018/07/15.jpg',15,'2018-07-12',5,'刺客组织','一般技能',4,'当其他人受到法律和道德的束缚的时候,记住-万事皆允','当其他人盲目的追寻真相和真实的时候,记住-万物皆虚',0),(4,'低调刺杀','按下鼠标左键从上方刺杀没有察觉到玩家的敌人。低调刺杀无声无息，不会造成恐慌，因为玩家在刺杀目标时还是没有被其他人发现','低调刺杀','intermediate',100000,1,0,'resource/images/course_cover/2018/07/16.jpg',7,'2018-07-12',5,'刺客组织','刺杀',3,'当其他人受到法律和道德的束缚的时候,记住-万事皆允','当其他人盲目的追寻真相和真实的时候,记住-万物皆虚',0),(5,'高调刺杀','按住shift键+鼠标左键从远处来进行刺杀，不过这样却会造出声音，在玩家的目标周围引起骚动。\r\n空中刺杀：当玩家位于目标上方时，按下鼠标左键从上方来进行刺杀，不过这样却会造出声响，在玩家的目标周围引起骚动。','<p>&nbsp; &nbsp; 高调刺杀</p><p><img src=\"/media/resource/ueditor/1_20180718124433_575.jpg\" title=\"\" alt=\"1.jpg\"/></p><p><img width=\"530\" height=\"340\" src=\"http://api.map.baidu.com/staticimage?center=116.485575,39.91188&zoom=18&width=530&height=340&markers=116.404,39.915\"/> </p><p><br/></p>','intermediate',150000,0,1,'resource/images/course_cover/2018/07/17.jpg',26,'2018-07-12',5,'刺客组织','刺杀',3,'当其他人受到法律和道德的束缚的时候,记住-万事皆允','当其他人盲目的追寻真相和真实的时候,记住-万物皆虚',0),(6,'双重刺杀','在技能选单中解开这项技能，当两名敌人互相靠得很近，而且两者标定位红色时，玩家就可以进行双重刺杀。双重刺杀可以用低调、高调和空中刺杀。','双重刺杀','senior',100000,0,0,'resource/images/course_cover/2018/07/18.jpg',7,'2018-07-12',5,'刺客组织','刺杀',2,'当其他人受到法律和道德的束缚的时候,记住-万事皆允','当其他人盲目的追寻真相和真实的时候,记住-万物皆虚',1),(7,'鹰眼视觉','鹰眼视觉是刺客的第六感，让玩家可以发现敌人、盟友和隐藏的物体。鹰眼视觉是侦察时最好用的工具。按下V键来启动鹰眼视觉，而持续视觉和冷却时间都能用许多配备来进行强化。\r\n在使用鹰眼视觉时，在世界中的玩家的小地图上会标定出不同的种类：任务目标会标定为金色、躲藏地点和有用的物体会标定位白色、偏激分子会标定为红色、守卫会标定为蓝色、盟友会标定为绿色。鹰眼视觉可以透过共有视觉技能的购买而获得强化。','鹰眼视觉','senior',200000,1,0,'resource/images/course_cover/2018/07/19.jpg',26,'2018-07-12',5,'刺客组织','进阶技能',2,'当其他人受到法律和道德的束缚的时候,记住-万事皆允','当其他人盲目的追寻真相和真实的时候,记住-万物皆虚',1),(8,'平A/空A','空中jc连招一般用于衔接与过度，我经常做的就是jc中：大剑空A->天使武器空A->恶魔武器空A->镰刀勾魂->大剑空A->天使武器空A->恶魔武器空A这样循环，过度技能，本身bug不多，不容连着连着突然掉下来。而且时机很好掌握，作为过渡武器是相当适合的。平A也是弹反神技，出招速度不快不慢，很好把握时机，无论是怪物的冷兵器弹反，还是飞行道具弹反。建议新手多用用大剑平A弹反。常用的套路就是对付老鼠的二连抓，恶魔闪第一下，然后原地对准老鼠的爪子砍下去，恶魔闪跟弹反都兼顾了，放在老鼠战里加分不少。我也经常用大剑弹反跟双刀互动，扔个飞镖或者斧头，双方连续弹反，很爽!','空中jc连招一般用于衔接与过度','intermediate',100,2,1,'resource/images/course_cover/2018/07/34.jpg',9,'2018-07-16',16,'但丁','一般技能',11,'鬼泣','fuck',0),(9,'死亡螺旋','这招两下平A之后停顿才能做到，360°无死角旋转，地面用的相对较少，一般用于空中，相对缓慢的出招速度，可以给玩家带来缓冲，怪物被滞空的时候也可以玩滑翔，增加身位，旋转中也可以jc取消。我主要用来衔接两发飞镖空A，然后旋转上升。先插一发爆弹，然后旋转上升，再滑翔至怪物身后或者远离怪物，拳套下拍滞空，引爆爆弹，把怪物炸过来，刚好的身位，一个下拍，相当的好看!在弹反方面用途没有平A那么大，不过弹反判定还是比较强的，旋转的时候有较高几率反弹怪物的冷兵器攻击。判定不是全程都有的，一般玩弹反也不是很建议用这招。旋转后的最后一下常被大触用来弹反飞行道具。技术或者意识不够，不推荐。死亡螺旋的另外两下平A一般用的很少，最后一下用来收尾挺帅，伤害也大，不过只能命中一个敌人，而且硬直又大。','这招两下平A之后停顿才能做到','intermediate',1000,0,0,'resource/images/course_cover/2018/07/36.jpg',4,'2018-07-16',16,'鬼泣','进阶技能',11,'死亡螺旋','这招两下平A之后停顿才能做到',1),(10,'百万突刺','跑路神技，突刺速度又快而且可以直接接天使闪，再接天使滑翔，就可以跑的非常快了。百万突刺最大的优点就是分数高，拉评价很快，而且可以只要不戳最后一下，怪就不会死，血宫里骗分非常好，连续的百万突刺，就是不给最后一下，分数刷够了，再空中把怪拉过来插上6爆弹引爆，分数刷刷的来了!这招连段中运用就是转向突刺了，经常被段子手用来最后收尾。弹反的话相对于平A要难不少，开始冲刺的那一瞬间有弹反判定，这个难度适中，就比平A难一点，拿来弹反飞行道具我非常喜欢，比如弹反猎人的飞刀，还有大冥的地波。然后百万突刺的最后一下也有弹反判定，这个就很难了，对时机的把握非常严格，我的话，弹十次失败8次吧，比如对付魔化敌人，突刺没有硬直，然后对方挥舞冷兵器打你的瞬间给出最后一下，刚好弹反，这就相当难了。','跑路神技，突刺速度又快而且可以直接接天使闪，再接天使滑翔，就可以跑的非常快了','intermediate',0,0,0,'resource/images/course_cover/2018/07/37.jpg',0,'2018-07-16',16,'鬼泣5','进阶技能',11,'百万突刺','百万突刺最大的优点就是分数高，拉评价很快',1),(11,'剑气','这招是输出最大的，不过硬直相对大剑其他招式较大，一般用在最后收尾，一大群怪物聚一起之后，来一发三段剑气，评价涨的可怕!FS完美释放的话可以破魔化，破霸体，时机也很好掌握，这个算是FS的入门了。一般连段就是恶魔拳套迅速后退，再用双枪平射取消拳套蓄力状态，取消的同时蓄力双枪还有大剑剑气，可以非常简单的使出双重FS：剑气FS+双枪跳弹FS。时机很好掌握。','这招是输出最大的，不过硬直相对大剑其他招式较大，一般用在最后收尾','intermediate',1000000,0,0,'resource/images/course_cover/2018/07/38.jpg',0,'2018-07-16',16,'鬼泣','进阶技能',11,'剑气','这招是输出最大的，不过硬直相对大剑其他招式较大，一般用在最后收尾',1),(12,'陆地三平砍','这是快速解决屠夫的绝佳技能，配合恶魔闪，连续的砍，轮个两回屠夫就差不多了。对于恶魔属性的怪物，也可以连续砍爆它们。而三连砍对普通怪每一击都有吹飞判定，这样就难以连招。事实上斧头的吹飞判定正是其有用之处，吹飞之后迅速接飞镖平A+摘星，可以将怪物拉到但丁身后，这样在收尾的时候释放双枪蓄力，加上6爆弹引爆会非常的帅气，参考康佛的场景战。另外如果怕怪飞的话，可以先飞镖定住，然后任你蹂躏。指的一体的是三连砍第二击容易产生bug，就是看一下有多次攻击判定，触发这个bug的话，怪物基本就是秒杀，相当的变态!','这是快速解决屠夫的绝佳技能，配合恶魔闪，连续的砍，轮个两回屠夫就差不多了','senior',100,2,1,'resource/images/course_cover/2018/07/39.jpg',2,'2018-07-16',16,'裁决巨斧','进阶技能',11,'陆地三平砍','三连砍第二击容易产生bug',0),(13,'三位一体','除了bug平砍第二击外，这招可以算是斧头最强伤害的一招，相当强横霸气的一招，砸下去会有一个区域判定，在这个区域内，所有怪物都会受到伤害，而且判定时间还超长，另外还带有破魔化附加效果。还有砸地之后全程带有弹反判定，只要你成功试出来了，基本可以无脑弹。但是也有个十分致命的缺点-硬直高，这招可以算是所有招式里硬直最高的，除非你确保安全，否则不要随意使用。概括为四高：高伤害，高判定时长，高弹反，高硬直!一般用途是最后收尾，还有怪物群杀，怪物聚一起来一发三位一体，那酸爽!可以瞬间让评价涨到SSS!大佛们常见打法就是利用高判定时长+爆弹引爆将怪物炸过来，用残余的伤害判定收尾，又帅又霸气!我个人比较喜欢利用它的弹反性能，特别是对于穿梭过来的双刀，一发三位一体弹反它的攻击，剩余判定将它KO!感觉很帅很酸爽!','这招可以算是斧头最强伤害的一招，相当强横霸气的一招','senior',10000,0,0,'resource/images/course_cover/2018/07/40.jpg',0,'2018-07-16',16,'裁决巨斧','进阶技能',11,'三位一体','我个人比较喜欢利用它的弹反性能，特别是对于穿梭过来的双刀，一发三位一体弹反它的攻击，剩余判定将它KO!感觉很帅很酸爽!',0);
+/*!40000 ALTER TABLE `courses_course` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `courses_courseresource`
+--
+
+DROP TABLE IF EXISTS `courses_courseresource`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `courses_courseresource` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `resource_name` varchar(100) NOT NULL,
+  `download` varchar(100) NOT NULL,
+  `add_time` date NOT NULL,
+  `course_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `courses_courseresource_course_id_5eba1332_fk_courses_course_id` (`course_id`),
+  CONSTRAINT `courses_courseresource_course_id_5eba1332_fk_courses_course_id` FOREIGN KEY (`course_id`) REFERENCES `courses_course` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `courses_courseresource`
+--
+
+LOCK TABLES `courses_courseresource` WRITE;
+/*!40000 ALTER TABLE `courses_courseresource` DISABLE KEYS */;
+INSERT INTO `courses_courseresource` VALUES (1,'资料包','resource/course/2018/07/conn_mysql','2018-07-13',7),(2,'资料包器具原型等','resource/course/2018/07/conn_mysql_TsKgKw5','2018-07-13',6),(3,'资料包器具原型等','resource/course/2018/07/conn_mysql_NzcN9IB','2018-07-13',5),(4,'资料包器具原型等','resource/course/2018/07/conn_mysql_1v2gCpd','2018-07-13',4),(5,'资料包器具原型等','resource/course/2018/07/conn_mysql_ntK68Dq','2018-07-13',3),(6,'资料包器具原型等','resource/course/2018/07/conn_mysql_h3oLaqC','2018-07-13',2);
+/*!40000 ALTER TABLE `courses_courseresource` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `courses_video`
+--
+
+DROP TABLE IF EXISTS `courses_video`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `courses_video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video_name` varchar(100) NOT NULL,
+  `add_time` date NOT NULL,
+  `chapter_id` int(11) NOT NULL,
+  `video_source` varchar(300) NOT NULL,
+  `video_times` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `courses_video_chapter_id_752e3d57_fk_courses_chapter_id` (`chapter_id`),
+  CONSTRAINT `courses_video_chapter_id_752e3d57_fk_courses_chapter_id` FOREIGN KEY (`chapter_id`) REFERENCES `courses_chapter` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `courses_video`
+--
+
+LOCK TABLES `courses_video` WRITE;
+/*!40000 ALTER TABLE `courses_video` DISABLE KEYS */;
+INSERT INTO `courses_video` VALUES (4,'第一节','2018-07-13',2,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(5,'第一节','2018-07-13',3,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(6,'第一节','2018-07-13',4,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(7,'第一节','2018-07-13',5,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(8,'第一节','2018-07-13',6,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(9,'第一节','2018-07-13',7,'http://www.feihu1996.cn/',0),(10,'第一节','2018-07-13',7,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(11,'第一节','2018-07-13',8,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(12,'第一节','2018-07-13',9,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(13,'第一节','2018-07-13',10,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(14,'第一节','2018-07-13',11,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(15,'第一节','2018-07-13',12,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(16,'第一节','2018-07-13',13,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(17,'第一节','2018-07-13',14,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(18,'第一节','2018-07-13',15,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(19,'第一节','2018-07-13',16,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(20,'第一节','2018-07-13',17,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(21,'第一节','2018-07-13',18,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0),(22,'第一节','2018-07-13',19,'http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4',0);
+/*!40000 ALTER TABLE `courses_video` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+DROP TABLE IF EXISTS `django_admin_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime(6) NOT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) unsigned NOT NULL,
+  `change_message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+  KEY `django_admin_log_user_id_c564eba6_fk_users_userprofile_id` (`user_id`),
+  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_users_userprofile_id` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+LOCK TABLES `django_admin_log` WRITE;
+/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_content_type`
+--
+
+DROP TABLE IF EXISTS `django_content_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+LOCK TABLES `django_content_type` WRITE;
+/*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(25,'captcha','captchastore'),(4,'contenttypes','contenttype'),(26,'courses','bannercourse'),(9,'courses','chapter'),(10,'courses','course'),(11,'courses','courseresource'),(12,'courses','video'),(13,'organizations','city'),(14,'organizations','courseorg'),(15,'organizations','teacher'),(5,'sessions','session'),(16,'userOperations','coursecomments'),(17,'userOperations','userask'),(18,'userOperations','usercourse'),(19,'userOperations','userfavorite'),(20,'userOperations','usermessage'),(7,'users','banner'),(8,'users','emailverifyrecord'),(6,'users','userprofile'),(21,'xadmin','bookmark'),(24,'xadmin','log'),(22,'xadmin','usersettings'),(23,'xadmin','userwidget');
+/*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `django_migrations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+LOCK TABLES `django_migrations` WRITE;
+/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2018-07-10 02:51:40.538119'),(2,'contenttypes','0002_remove_content_type_name','2018-07-10 02:51:42.361804'),(3,'auth','0001_initial','2018-07-10 02:51:48.019800'),(4,'auth','0002_alter_permission_name_max_length','2018-07-10 02:51:49.165363'),(5,'auth','0003_alter_user_email_max_length','2018-07-10 02:51:49.239141'),(6,'auth','0004_alter_user_username_opts','2018-07-10 02:51:49.330283'),(7,'auth','0005_alter_user_last_login_null','2018-07-10 02:51:49.428163'),(8,'auth','0006_require_contenttypes_0002','2018-07-10 02:51:49.540753'),(9,'auth','0007_alter_validators_add_error_messages','2018-07-10 02:51:49.640129'),(10,'auth','0008_alter_user_username_max_length','2018-07-10 02:51:49.752886'),(11,'auth','0009_alter_user_last_name_max_length','2018-07-10 02:51:49.874624'),(12,'users','0001_initial','2018-07-10 02:51:56.194139'),(13,'admin','0001_initial','2018-07-10 02:51:59.430576'),(14,'admin','0002_logentry_remove_auto_add','2018-07-10 02:51:59.509378'),(15,'courses','0001_initial','2018-07-10 02:52:05.422527'),(16,'organizations','0001_initial','2018-07-10 02:52:09.371116'),(17,'sessions','0001_initial','2018-07-10 02:52:10.280485'),(18,'userOperations','0001_initial','2018-07-10 02:52:20.409274'),(19,'users','0002_auto_20180710_0243','2018-07-10 02:52:23.791471'),(20,'users','0003_auto_20180710_0415','2018-07-10 04:15:48.075495'),(21,'xadmin','0001_initial','2018-07-10 13:41:15.108039'),(22,'xadmin','0002_log','2018-07-10 13:41:18.220872'),(23,'xadmin','0003_auto_20160715_0100','2018-07-10 13:41:19.819974'),(24,'courses','0002_auto_20180710_1556','2018-07-10 15:56:29.869522'),(25,'captcha','0001_initial','2018-07-11 17:50:24.033035'),(26,'organizations','0002_auto_20180712_1443','2018-07-12 14:43:53.035913'),(27,'organizations','0003_courseorg_category','2018-07-12 15:48:00.784283'),(28,'organizations','0004_auto_20180712_1846','2018-07-12 18:46:37.158432'),(29,'courses','0003_auto_20180712_2233','2018-07-12 22:34:00.641906'),(30,'courses','0004_auto_20180712_2247','2018-07-12 22:47:49.632869'),(31,'organizations','0005_teacher_head_shot','2018-07-13 00:52:51.132562'),(32,'courses','0005_course_course_category','2018-07-13 14:51:45.757245'),(33,'courses','0006_course_course_tag','2018-07-13 15:38:20.812059'),(34,'courses','0007_video_video_source','2018-07-13 18:02:50.896477'),(35,'courses','0008_auto_20180713_1911','2018-07-13 19:11:32.584852'),(36,'courses','0009_course_teacher','2018-07-13 19:44:57.499007'),(37,'courses','0010_auto_20180713_2002','2018-07-13 20:02:11.029414'),(38,'userOperations','0002_auto_20180713_2203','2018-07-13 22:03:51.404299'),(39,'organizations','0006_teacher_age','2018-07-14 12:30:26.538078'),(40,'users','0004_auto_20180715_0509','2018-07-15 05:09:32.809037'),(41,'userOperations','0003_auto_20180715_1402','2018-07-15 14:02:22.318175'),(42,'courses','0011_course_is_banner','2018-07-16 12:49:22.212007'),(43,'organizations','0007_courseorg_tag','2018-07-16 14:02:47.597016'),(44,'courses','0012_auto_20180717_1336','2018-07-17 13:36:14.873938');
+/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_expire_date_a5c62663` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_session`
+--
+
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('663tlpor8ltb296rlqu0jrrj3r1jffa0','NDZjNTY3ZTE4ZGEzMWY1Yjk5MGY4YjE1NDNjOTRiZmU1Yzc0NTc5Nzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoidXNlcnMudmlld3MuQ3VzdG9tQmFja2VuZCIsIl9hdXRoX3VzZXJfaGFzaCI6IjY3YzYxZjM0YTNmMDYyZjViYzg4OTAxYWZjNjFlYTcyOTQ5NzFmNDUifQ==','2018-08-01 19:50:29.343492'),('jgoy7j2c8b1v306ichxnjxxum9e4x0z2','NWJjMDY2YTg1M2I1ZTgyYjM0MWQyZmJmMTQ0ZTM1MmYzMjczYmIyZjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1ZTA3ODc2MDc5ZWMzMmY4ZDk4NjQ2MDZiYzY4NjFlYzBmYjc0NjI2IiwiTElTVF9RVUVSWSI6W1sieGFkbWluIiwibG9nIl0sIiJdfQ==','2018-07-25 02:11:02.677072'),('zmsgdyxv4kni8dojpae470gvgcjn2u1k','NDZjNTY3ZTE4ZGEzMWY1Yjk5MGY4YjE1NDNjOTRiZmU1Yzc0NTc5Nzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoidXNlcnMudmlld3MuQ3VzdG9tQmFja2VuZCIsIl9hdXRoX3VzZXJfaGFzaCI6IjY3YzYxZjM0YTNmMDYyZjViYzg4OTAxYWZjNjFlYTcyOTQ5NzFmNDUifQ==','2018-08-01 12:55:38.322681');
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `organizations_city`
+--
+
+DROP TABLE IF EXISTS `organizations_city`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `organizations_city` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `city_name` varchar(20) NOT NULL,
+  `add_time` date NOT NULL,
+  `city_desc` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organizations_city`
+--
+
+LOCK TABLES `organizations_city` WRITE;
+/*!40000 ALTER TABLE `organizations_city` DISABLE KEYS */;
+INSERT INTO `organizations_city` VALUES (10,'大马士革','2018-07-12','十字军东征时穆斯林的大本营－大马士革，该城市即叙利亚的首都，这座城市相较于艾可而言，有着迥然不同风格特色，大马士革是一座沙漠之城，映入眼帘的是独属于沙漠的黄色，不过，不同于沙漠的萧条，在这座城市中有相当繁华喧嚣的市集，还有宏伟肃穆的伊斯兰教清真寺庙。'),(13,'佛罗伦萨','2018-07-12','本次《刺客信条2》的背景设定在1486年的意大利文艺复兴时代，地点在威尼斯、佛罗伦萨以及托斯卡纳。玩家依旧是操作戴西蒙德的祖先，本次的祖先名叫艾吉奥。艾吉奥出身贵族，但是没多久他就被卷入了他人对他家族的阴谋中，于是他决定找阴谋策划者复仇。在艾吉奥的任务中，他将要面对强大的Grimaldi家族，这个家族也就相当于今天黑手党的前身。除了要对抗Grimaldi家族的成员，我们知道圣殿骑士团也会回来。作为敌方重要角色的Carno Grimaldi，在威尼斯当地可谓有权有势。很显然，这个家伙身边保护重重，而他对自己过于自信也是他失败的原因 。'),(14,'托斯卡纳','2018-07-12','本次《刺客信条2》的背景设定在1486年的意大利文艺复兴时代，地点在威尼斯、佛罗伦萨以及托斯卡纳。玩家依旧是操作戴西蒙德的祖先，本次的祖先名叫艾吉奥。艾吉奥出身贵族，但是没多久他就被卷入了他人对他家族的阴谋中，于是他决定找阴谋策划者复仇。在艾吉奥的任务中，他将要面对强大的Grimaldi家族，这个家族也就相当于今天黑手党的前身。除了要对抗Grimaldi家族的成员，我们知道圣殿骑士团也会回来。作为敌方重要角色的Carno Grimaldi，在威尼斯当地可谓有权有势。很显然，这个家伙身边保护重重，而他对自己过于自信也是他失败的原因 。'),(17,'马西亚夫','2018-07-12','1511年年初，冒着冬天的严寒，Ezio来到了曾经作为刺客总部的中东小镇马西亚夫，寻找祖先阿泰尔留给后代的信息。在他即将踏入刺客城堡的大门时，被一群手执兵器的士兵包围。他们是已经覆灭的拜占庭帝国残存的一支圣殿骑士，现在他们又渐渐发展壮大。Ezio被抓住，但很快便伺机逃脱。在试图离开城堡时他通过一名被圣殿骑士绑架来的人得知了圣殿骑士的阴谋——他们在寻找5把马西亚夫之钥，来打开刺客城堡中的密室。'),(20,'加勒比海','2018-07-12','《刺客信条4：黑旗》故事背景设定在1715年的加勒比海，以《刺客信条3》主角康纳·肯威的祖父英国青年爱德华·詹姆斯·肯维为主角。游戏讲述了主角爱德华因不甘生活的落魄，而成为走私者海盗，但却于一场海战中被海军的刺客追杀，后爱德华参与18世纪逐渐结束的私掠战争、并转变成为刺客与圣殿骑士的千年对抗。'),(21,'巴黎','2018-07-12','《刺客信条 大革命》中玩家扮演全新刺客主角亚诺·多里安，拥有法兰西与奥地利血统的他在失去一切后，于1789年加入了刺客组织，试图找出这场革命幕后的真正势力。'),(22,'埃及','2018-07-12','游戏除了埃及之外，还可以通过航船系统探索其他国家，比如希腊，以及整个地中海地区，海战依然会出现在本作中，毕竟该作由《刺客信条4》团队打造。'),(23,'伦敦','2018-07-12','《刺客信条：枭雄》的故事发生在维多利亚时期的英国伦敦。两位主角由一名刺客抚养长大，男主名为雅各·弗莱，他将被卷入维多利亚女王统治下的罪恶伦敦，并试图去恢复和平统治。女主角是雅各·弗莱的姐姐伊薇·弗莱，她善于潜行，懂得控制管理之道，将帮助雅各·弗莱惩恶扬善。'),(24,'明朝中国','2018-07-12','明朝中国'),(25,'北美殖民地','2018-07-12','北美殖民地'),(26,'鬼泣','2018-07-16','鬼泣');
+/*!40000 ALTER TABLE `organizations_city` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `organizations_courseorg`
+--
+
+DROP TABLE IF EXISTS `organizations_courseorg`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `organizations_courseorg` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `org_name` varchar(50) NOT NULL,
+  `org_desc` longtext NOT NULL,
+  `click_nums` int(11) NOT NULL,
+  `fav_nums` int(11) NOT NULL,
+  `cover_image` varchar(100) NOT NULL,
+  `org_address` varchar(150) NOT NULL,
+  `add_time` date NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `category` varchar(20) NOT NULL,
+  `course_nums` int(11) NOT NULL,
+  `student_nums` int(11) NOT NULL,
+  `tag` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `organizations_course_city_id_d828a591_fk_organizat` (`city_id`),
+  CONSTRAINT `organizations_course_city_id_d828a591_fk_organizat` FOREIGN KEY (`city_id`) REFERENCES `organizations_city` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organizations_courseorg`
+--
+
+LOCK TABLES `organizations_courseorg` WRITE;
+/*!40000 ALTER TABLE `organizations_courseorg` DISABLE KEYS */;
+INSERT INTO `organizations_courseorg` VALUES (3,'刺客组织1','古代圣堂骑士和刺客部落的争斗一直延续至今，戴斯蒙德·迈尔斯作为刺客后代一员被Abstergo公司绑架后逼迫其回忆祖先的记忆（此公司由圣堂骑士的后代组成，为达目的却不择手段；他们试图通过控制人类 的意识和杀掉那些不被他们能力影响的人，让世界得到和平。），公司的目的是找到一种叫伊甸园碎片的神器，并试图查出其它几个碎片的位置，这种神器有很多个，记忆中阿泰尔的师父Mualim在游戏一开始得到的那个东西就是其中之一，这种神器的力量是给人幻觉 （精神控制，统治世界的关键手段），公司的原计划是试用利用主角来找寻和取得那些远古神物。然后它们发射到太空中，在低轨道上运行并替所有人洗脑。但 阿泰尔和戴斯蒙德·迈尔斯作为刺客部族有一种特殊的能力，就是看穿一切幻觉和谎言，所以整个游戏Mualim在控制阿泰尔的时候困难重重，阿泰尔也几次在任务中质疑任务本身，最终阿泰尔自己悟出（不是完全自己悟出，有一些人的帮助）真相，游戏终章和Mualim决斗，Mualim再次试图用神器控制阿泰尔，结果还是没有鹰之视野强大，最终失败。',6,0,'resource/images/org_cover/2018/07/1_uo6ApFi.jpg','欧洲','2018-07-12',10,'pxjg',0,0,'万事皆空'),(4,'刺客信条2','本次《刺客信条2》的背景设定在1486年的意大利文艺复兴时代，地点在威尼斯、佛罗伦萨以及托斯卡纳。玩家依旧是操作戴西蒙德的祖先，本次的祖先名叫艾吉奥。艾吉奥出身贵族，但是没多久他就被卷入了他人对他家族的阴谋中，于是他决定找阴谋策划者复仇。在艾吉奥的任务中，他将要面对强大的Grimaldi家族，这个家族也就相当于今天黑手党的前身。除了要对抗Grimaldi家族的成员，我们知道圣殿骑士团也会回来。作为敌方重要角色的Carno Grimaldi，在威尼斯当地可谓有权有势。很显然，这个家伙身边保护重重，而他对自己过于自信也是他失败的原因 。',0,0,'resource/images/org_cover/2018/07/2.jpg','佛罗伦萨','2018-07-12',13,'pxjg',0,0,'万事皆空'),(5,'刺客信条：兄弟会','由于《刺客信条》的故事发展至此已经到了第三代，所以《刺客信条：兄弟会》一开始就来了段前情提要，交代系列故事的来龙去脉：故事的主角戴斯蒙德·迈尔斯因为拥有阿萨辛祖先的基因记忆，所以被当代的圣殿武士组织Abstergo绑架，利用记忆回溯仪器Animus读取戴斯蒙德阿萨辛祖先的记忆，并借此找出伊甸残片的所在，进一步使用这些神秘物件的力量统治世界。在《刺客信条2》的尾声，圣殿武士杀入戴斯蒙德所在的阿萨辛据点，主角一行人只得展开逃亡。',0,0,'resource/images/org_cover/2018/07/3.jpg','托斯卡纳','2018-07-12',14,'pxjg',6,0,'万事皆空'),(6,'刺客信条4：黑旗','《刺客信条4：黑旗》故事背景设定在1715年的加勒比海，以《刺客信条3》主角康纳·肯威的祖父英国青年爱德华·詹姆斯·肯维为主角。游戏讲述了主角爱德华因不甘生活的落魄，而成为走私者海盗，但却于一场海战中被海军的刺客追杀，后爱德华参与18世纪逐渐结束的私掠战争、并转变成为刺客与圣殿骑士的千年对抗。',0,0,'resource/images/org_cover/2018/07/4.jpg','加勒比海','2018-07-12',20,'pxjg',0,0,'万事皆空'),(7,'刺客信条：大革命','游戏的背景设定在18世纪的巴黎，法国大革命时期。\r\n于游戏背景400年前的1307年，圣书和圣剑被刺客盗取。七年后，克莱门教皇以及法国国王菲利普经过审讯后决定将雅克·德·莫莱和一名圣殿骑士团成员被束缚在火架台上进行火刑处死。\r\n此后，一名叫作主教的女子入侵了玩家的视像通信，她连同一名叫作迪肯的人力劝”玩家“加入到刺客组织，主教告诉玩家其实Abstergo公司一直在利用像”玩家“这样有着刺客血统的人，他们正在挟持”玩家“的神经元，透过遗传因子的记忆帮助他们攫取历史数据。想Abstergo这种大财团，他们控制了许多相关企业、政府机构、媒体业界还有非政府组织，为的就是要掌控历史。\r\n现在刺客组织需要玩家，然后主教强行对”玩家“载入基因序列AD16-B13-187，她还告诉”玩家“，上周他们去的了Abstergo helix尚未定序的记忆资料库，她可以向玩家提供小部分样本，让”玩家“明白到对抗Abstergo的意义。',3,0,'resource/images/org_cover/2018/07/5.jpg','巴黎','2018-07-12',21,'gx',0,0,'万事皆空'),(8,'刺客信条：起源','《刺客信条：起源》是由育碧制作并发行的《刺客信条》系列历史上规模最大的一个。本作采用开放地图沙盒玩法，主地图为埃及，聚焦刺客兄弟会的起源，主角为巴耶克。',2,0,'resource/images/org_cover/2018/07/6.jpg','埃及','2018-07-12',22,'pxjg',0,0,'万事皆空'),(9,'刺客信条：枭雄','《刺客信条：枭雄》的故事发生在维多利亚时期的英国伦敦。两位主角由一名刺客抚养长大，男主名为雅各·弗莱，他将被卷入维多利亚女王统治下的罪恶伦敦，并试图去恢复和平统治。女主角是雅各·弗莱的姐姐伊薇·弗莱，她善于潜行，懂得控制管理之道，将帮助雅各·弗莱惩恶扬善。',1,0,'resource/images/org_cover/2018/07/7.jpg','伦敦','2018-07-12',23,'pxjg',0,0,'万事皆空'),(10,'刺客信条：编年史','《刺客信条：编年史》作品均为2.5D卷轴玩法，还包括支线任务，圣器收集元素，每位刺客为不同作战方法，武器，技能。玩家可游玩三个不同国家文化的刺客，包括明朝即将覆灭期间的中国刺客邵君，锡克帝国与东印度公司交战期间的印度刺客Arbaaz Mir，以及十月革命之后的俄罗斯刺客Nikolai Orelov，三款作品包含独特的画风，剧情，但整体架构相联系。',3,0,'resource/images/org_cover/2018/07/8.jpg','明朝中国','2018-07-12',24,'pxjg',0,0,'万事皆空'),(11,'刺客信条：叛变','《刺客信条：叛变》的游戏背景设定在1752年到1761年的英法七年战争期间，将是《刺客信条4：黑旗》的续作，确切的说是与三代早期平行时间段的一个故事，将会以一位名叫“谢伊”的圣殿骑士作为游戏主角。《刺客信条3》中的海尔森·肯维，威廉·强森等圣殿骑士还有阿基里斯和《刺客信条4：黑旗》中的阿德瓦勒也会在该作中登场。',0,0,'resource/images/org_cover/2018/07/9.jpg','北美殖民地','2018-07-12',25,'pxjg',0,0,'万事皆空'),(12,'刺客信条4：自由呐喊','Adewale出身于奴隶阶级，在登上寒鸦号的爱德华·肯威成为一名海盗后，他发现属于自己的自由。15年后，Adewale已成为一名训练有素的刺客，却在圣多明哥遭遇船难，身边也没有任何团员或是武器。他必须取得一艘船只以及筹组自己的团队来拯救一群奴隶，并为他们展开复仇。',0,0,'resource/images/org_cover/2018/07/10.jpg','加勒比海','2018-07-12',20,'pxjg',0,0,'万事皆空'),(13,'刺客信条3：解放','在上述的战争经过数年后，新奥尔良城的控制权最终落入了西班牙手中，西班牙并进一步利用新奥尔良作为运送欧洲物资到殖民地内陆的港口，法国和英国都从这里转运他们送往北美东部的物资，三方势力都在新奥尔良激烈争夺。于是，新奥尔良作为密西西比河的入海口，与其周边的地域自然而然的发展成了富裕的欧洲人的聚集地，逐渐形成一个以奴隶贸易为经济活动中心的社会。',1,0,'resource/images/org_cover/2018/07/11.jpg','新奥尔良','2018-07-12',25,'pxjg',0,0,'万事皆空'),(14,'刺客信条：启示录','1511年年初，冒着冬天的严寒，Ezio来到了曾经作为刺客总部的中东小镇马西亚夫，寻找祖先阿泰尔留给后代的信息。在他即将踏入刺客城堡的大门时，被一群手执兵器的士兵包围。他们是已经覆灭的拜占庭帝国残存的一支圣殿骑士，现在他们又渐渐发展壮大。Ezio被抓住，但很快便伺机逃脱。在试图离开城堡时他通过一名被圣殿骑士绑架来的人得知了圣殿骑士的阴谋——他们在寻找5把马西亚夫之钥，来打开刺客城堡中的密室。',0,0,'resource/images/org_cover/2018/07/12.jpg','马西亚夫','2018-07-12',17,'pxjg',0,0,'万事皆空'),(15,'刺客信条2：探索','游戏的剧情发生在《刺客信条II》故事的15年之后，（前情参见词条：刺客信条II ）主人公也是II的主角艾吉奥·奥迪托雷·达·佛罗伦萨（Ezio Auditore da Firenze）。当他来到15世纪的西班牙，去解放那些被西班牙宗教法庭的幌子下监禁的跟随他的刺客们。在这个过程中，埃齐奥发现圣殿骑士团计划向西航行去发现新大陆。埃齐奥必须救下克里斯托弗·哥伦布(Christoffa Corombo)，并且杀死托马斯·托尔克马达以消除圣殿骑士的威胁。 埃齐奥也不得不暗杀其他一些重要的目标，如：加斯珀·马丁内斯，佩德罗·略伦特，圣殿骑士的间谍以及胡安·德·马里罗。',0,0,'resource/images/org_cover/2018/07/13.jpg','西班牙','2018-07-12',13,'gr',0,0,'万事皆空'),(16,'鬼泣5','光头佬企图用金钱控制世界，但心中仍有一个焦虑，那就是叛徒斯巴达之子[但丁]。为了达成自己的目的，猎杀但丁的行动已经展开。猎人已经追寻到但丁的足迹，正在向他袭来。宿醉的但丁，被一名名叫凯特的姑娘叫醒，告诉但丁猎人已经开始追杀他了。在凯特的指引和帮助下，但丁做掉了猎人。并且得知，凯特是一位通灵人，可以在地狱边境（LIMBO）中与他交流。随后，凯特开车邀请但丁一起去见一个人。',7,0,'resource/images/org_cover/2018/07/33.jpg','鬼泣5','2018-07-16',26,'pxjg',0,0,'万事皆空'),(17,'古墓丽影：崛起','古墓丽影：崛起》是由Crystal Dynamics开发，Square Enix负责发行的一款单机类动作冒险游戏，该游戏是《新古墓丽影(原名：Tomb Raider，即是古墓丽影9)》的续作，于2015年12月正式发行。',1,1,'resource/images/org_cover/2018/07/41.jpg','叙利亚','2018-07-16',25,'gx',0,0,'万事皆允');
+/*!40000 ALTER TABLE `organizations_courseorg` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `organizations_teacher`
+--
+
+DROP TABLE IF EXISTS `organizations_teacher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `organizations_teacher` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `working_years` int(11) NOT NULL,
+  `working_company` varchar(50) NOT NULL,
+  `working_position` varchar(50) NOT NULL,
+  `points` varchar(50) NOT NULL,
+  `click_nums` int(11) NOT NULL,
+  `fav_nums` int(11) NOT NULL,
+  `add_time` date NOT NULL,
+  `course_org_id` int(11) NOT NULL,
+  `head_shot` varchar(100) NOT NULL,
+  `age` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `organizations_teache_course_org_id_c76c93c6_fk_organizat` (`course_org_id`),
+  CONSTRAINT `organizations_teache_course_org_id_c76c93c6_fk_organizat` FOREIGN KEY (`course_org_id`) REFERENCES `organizations_courseorg` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organizations_teacher`
+--
+
+LOCK TABLES `organizations_teacher` WRITE;
+/*!40000 ALTER TABLE `organizations_teacher` DISABLE KEYS */;
+INSERT INTO `organizations_teacher` VALUES (2,'艾吉奥·奥迪托雷',40,'刺客组织','刺客集团首领','非常的号召力和人格魅力',5,0,'2018-07-12',5,'resource/images/head_shot/2018/07/23.jpg',20),(3,'马里奥·奥迪托雷',60,'刺客组织','艾吉奥的叔叔，也是艾吉奥进入刺客行列的领路人，导师','表面是功勋卓著的雇佣兵长贵族，真实身份却是刺客头目',2,1,'2018-07-12',5,'resource/images/head_shot/2018/07/22.jpg',20),(4,'克劳迪娅·奥迪托雷',10,'刺客组织','艾吉奥的妹妹，一度过着衣食无忧的大小姐日子','将妓院改造为一个秘密的刺客据点，Claudia最终成为一名刺客',0,0,'2018-07-12',5,'resource/images/head_shot/2018/07/21.jpg',20),(5,'拉·沃尔佩',50,'刺客组织','出场于前作《刺客信条2》，帮助过艾吉奥，于1498年销声匿迹','Vople对Machiavelli极其的不信任，一直怀疑其是内奸',0,0,'2018-07-12',5,'resource/images/head_shot/2018/07/20.jpg',20),(6,'莱昂纳多·达·芬奇',50,'刺客组织','举世瞩目的画家，发明家，科学家','艾齐奥母亲的朋友，也是艾吉奥的朋友，无论在佛罗伦萨、威尼斯还是罗马，艾吉奥都能和达芬奇不期而遇',0,0,'2018-07-14',5,'resource/images/head_shot/2018/07/24.jpg',20),(7,'巴托洛缪·德·阿尔维亚诺',20,'刺客集团','佣兵工会头目','在威尼斯船厂帮助过艾吉奥',0,0,'2018-07-14',5,'resource/images/head_shot/2018/07/25.jpg',20),(8,'罗德里戈·博尔吉亚/亚历山大六世',100,'圣殿骑士','最终BOSS，圣殿骑士头目','害死了艾齐奥的父兄，但最终艾吉奥并未杀死他',0,0,'2018-07-14',4,'resource/images/head_shot/2018/07/26.jpg',200),(9,'恺撒·博尔吉亚',50,'圣殿骑士','亚历山大六世教皇与情妇的私生子','Cesare生性狡诈，居无定所，还一度离开罗马不知去向，给刺客集团的猎杀行动造成了很大的困难',0,0,'2018-07-14',5,'resource/images/head_shot/2018/07/27.jpg',40),(10,'尼可罗·马基亚维利',40,'刺客集团','著名政治哲学家、音乐家、诗人、和浪漫喜剧剧作家','马基亚维利是一个貌奸实忠的人，有着上层社会的身份，却实则阿萨辛刺客集团罗马分支首领',0,0,'2018-07-14',5,'resource/images/head_shot/2018/07/28.jpg',50),(11,'但丁',100,'鬼泣','鬼泣','鬼泣',0,0,'2018-07-16',16,'resource/images/head_shot/2018/07/33.jpg',24);
+/*!40000 ALTER TABLE `organizations_teacher` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userOperations_coursecomments`
+--
+
+DROP TABLE IF EXISTS `userOperations_coursecomments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `userOperations_coursecomments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `comment_content` varchar(200) NOT NULL,
+  `add_time` datetime(6) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userOperations_cours_course_id_b0ba6ee9_fk_courses_c` (`course_id`),
+  KEY `userOperations_cours_user_id_fa2bbc73_fk_users_use` (`user_id`),
+  CONSTRAINT `userOperations_cours_course_id_b0ba6ee9_fk_courses_c` FOREIGN KEY (`course_id`) REFERENCES `courses_course` (`id`),
+  CONSTRAINT `userOperations_cours_user_id_fa2bbc73_fk_users_use` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userOperations_coursecomments`
+--
+
+LOCK TABLES `userOperations_coursecomments` WRITE;
+/*!40000 ALTER TABLE `userOperations_coursecomments` DISABLE KEYS */;
+INSERT INTO `userOperations_coursecomments` VALUES (1,'刺客必杀技','2018-07-13 00:00:00.000000',4,1),(2,'刺客必杀技','2018-07-13 00:00:00.000000',2,1),(4,'刺客必杀技','2018-07-13 00:00:00.000000',5,1),(5,'刺客必杀技','2018-07-13 00:00:00.000000',6,1),(7,'hello,world','2018-07-13 00:00:00.000000',7,1),(8,'hello,world','2018-07-13 22:04:07.570459',7,1),(9,'哈哈','2018-07-13 22:06:53.036196',7,1);
+/*!40000 ALTER TABLE `userOperations_coursecomments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userOperations_userask`
+--
+
+DROP TABLE IF EXISTS `userOperations_userask`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `userOperations_userask` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(20) NOT NULL,
+  `cell_phone_number` varchar(11) NOT NULL,
+  `course_name` varchar(50) NOT NULL,
+  `add_time` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userOperations_userask`
+--
+
+LOCK TABLES `userOperations_userask` WRITE;
+/*!40000 ALTER TABLE `userOperations_userask` DISABLE KEYS */;
+INSERT INTO `userOperations_userask` VALUES (1,'高少祥','17343009173','行刺','2018-07-12'),(2,'fiehu','18111645032','xxx','2018-07-12');
+/*!40000 ALTER TABLE `userOperations_userask` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userOperations_usercourse`
+--
+
+DROP TABLE IF EXISTS `userOperations_usercourse`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `userOperations_usercourse` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `add_time` date NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userOperations_userc_course_id_25e0ffe9_fk_courses_c` (`course_id`),
+  KEY `userOperations_userc_user_id_3014ebfc_fk_users_use` (`user_id`),
+  CONSTRAINT `userOperations_userc_course_id_25e0ffe9_fk_courses_c` FOREIGN KEY (`course_id`) REFERENCES `courses_course` (`id`),
+  CONSTRAINT `userOperations_userc_user_id_3014ebfc_fk_users_use` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userOperations_usercourse`
+--
+
+LOCK TABLES `userOperations_usercourse` WRITE;
+/*!40000 ALTER TABLE `userOperations_usercourse` DISABLE KEYS */;
+INSERT INTO `userOperations_usercourse` VALUES (1,'2018-07-13',3,1),(2,'2018-07-13',5,1),(3,'2018-07-13',7,1),(4,'2018-07-14',2,1),(5,'2018-07-15',4,1),(6,'2018-07-16',8,1),(7,'2018-07-16',12,1);
+/*!40000 ALTER TABLE `userOperations_usercourse` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userOperations_userfavorite`
+--
+
+DROP TABLE IF EXISTS `userOperations_userfavorite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `userOperations_userfavorite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fav_id` int(11) NOT NULL,
+  `fav_type` int(11) NOT NULL,
+  `add_time` date NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userOperations_userf_user_id_06161eef_fk_users_use` (`user_id`),
+  CONSTRAINT `userOperations_userf_user_id_06161eef_fk_users_use` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userOperations_userfavorite`
+--
+
+LOCK TABLES `userOperations_userfavorite` WRITE;
+/*!40000 ALTER TABLE `userOperations_userfavorite` DISABLE KEYS */;
+INSERT INTO `userOperations_userfavorite` VALUES (16,3,3,'2018-07-16',1),(25,12,1,'2018-07-16',1),(27,17,2,'2018-07-16',1),(30,5,1,'2018-07-17',1),(32,8,1,'2018-07-18',1);
+/*!40000 ALTER TABLE `userOperations_userfavorite` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userOperations_usermessage`
+--
+
+DROP TABLE IF EXISTS `userOperations_usermessage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `userOperations_usermessage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) NOT NULL,
+  `message_content` varchar(500) NOT NULL,
+  `has_read` tinyint(1) NOT NULL,
+  `add_time` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userOperations_usermessage`
+--
+
+LOCK TABLES `userOperations_usermessage` WRITE;
+/*!40000 ALTER TABLE `userOperations_usermessage` DISABLE KEYS */;
+INSERT INTO `userOperations_usermessage` VALUES (1,1,'hello, feihu1996,欢迎加入勤学网',1,'2018-07-15 00:00:00.000000'),(2,0,'勤学网上线了～',1,'2018-04-05 00:00:00.000000'),(4,1,'系统消息',1,'2018-07-15 14:47:00.000000'),(5,0,'还是系统消息',1,'2018-07-15 14:48:00.000000');
+/*!40000 ALTER TABLE `userOperations_usermessage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users_banner`
+--
+
+DROP TABLE IF EXISTS `users_banner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `users_banner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `cover_image` varchar(100) NOT NULL,
+  `target_url` varchar(100) NOT NULL,
+  `index` int(11) NOT NULL,
+  `add_time` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_banner`
+--
+
+LOCK TABLES `users_banner` WRITE;
+/*!40000 ALTER TABLE `users_banner` DISABLE KEYS */;
+INSERT INTO `users_banner` VALUES (2,'古墓丽影10：崛起','resource/images/banner_cover/2018/07/29.jpg','http://www.feihu1996.cn/',1,'2018-07-16'),(3,'鬼泣5','resource/images/banner_cover/2018/07/30.jpg','http://www.feihu1996.cn',2,'2018-07-16'),(4,'刺客信条：起源','resource/images/banner_cover/2018/07/31.jpg','http://www.feihu1996.cn',3,'2018-07-16');
+/*!40000 ALTER TABLE `users_banner` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users_emailverifyrecord`
+--
+
+DROP TABLE IF EXISTS `users_emailverifyrecord`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `users_emailverifyrecord` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `send_type` varchar(10) NOT NULL,
+  `send_time` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_emailverifyrecord`
+--
+
+LOCK TABLES `users_emailverifyrecord` WRITE;
+/*!40000 ALTER TABLE `users_emailverifyrecord` DISABLE KEYS */;
+INSERT INTO `users_emailverifyrecord` VALUES (2,'admin','admin@qq.com','register','2018-07-10'),(3,'adminx','adminx@qq.com','register','2018-07-10'),(4,'0qL1zO$e#Y(3qZ7)','gsx0312@qq.com','register','2018-07-11'),(5,'k#6$C4@74AqmL_eY','gsx0312@qq.com','register','2018-07-11'),(6,'_I35UZw+r4_m*Hv9','gsx0312@qq.com','register','2018-07-11'),(7,'o^EB$9*#oyE8a88B','gsx0312@qq.com','register','2018-07-11'),(8,'OK0#8m$RXc*km$09','gsx0312@qq.com','register','2018-07-11'),(9,'Ha24E9ms1QZrw3aF','gsx0312@qq.com','register','2018-07-11'),(10,'rW7Ko31ghT3xX5Ez','gsx0312@qq.com','register','2018-07-11'),(11,'qBb8U2TdNu9Z3xv7','gsx0312@qq.com','register','2018-07-11'),(12,'9jkiHq4Br166sBFR','gsx0312@qq.com','forget','2018-07-11'),(13,'6C5bv27vbBb8MCpW','gsx0312@qq.com','forget','2018-07-12'),(14,'48wPs4LMnoAg51Vt','gsx0312@qq.com','forget','2018-07-12'),(15,'AswW0h2m8ReXN11n','gsx0312@qq.com','update','2018-07-15'),(16,'K4r7O9ObbM9z7Rsj','gsx0312@qq.com','update','2018-07-15'),(17,'CBw9nK11TqMzj4v0','gsx0312@qq.com','update','2018-07-15'),(18,'n0Pl09a1LjtBZxZ6','gsx0312@qq.com','register','2018-07-15'),(19,'6w601jhsDPRY0zAi','gsx0312@qq.com','update','2018-07-15'),(20,'6giG9fO7lMZm47cS','gsx0312@qq.com','update','2018-07-15'),(21,'z6WK8UTa71bjb6Oj','gsx0312@qq,com','update','2018-07-15'),(22,'i5YaDK9j7ums66ES','gsx0312@qq,com','update','2018-07-15'),(23,'fS1qqOSn8X3Oj8o1','gsx0312@qq.com','update','2018-07-15'),(24,'6LqDr0Wt8riS6Gk8','gsx0312@qq.com','update','2018-07-15'),(25,'pE5fqT1t7TNA7jo0','gsx0312@qq.com','update','2018-07-15'),(26,'2CZYlR0aEbb8i1i0','gsx0312@qq.com','register','2018-07-15'),(27,'Eja2wL9aECv564Hu','gsx0312@qq.com','update','2018-07-15'),(28,'2khLUI5vwO0j68kI','gsx0312@qq.com','update','2018-07-15'),(29,'ViTal3t6hQYN579s','gsx0312@qq.com','update','2018-07-15'),(30,'C5aKtl84naUo29HL','gsx0312@qq.com','update','2018-07-15'),(31,'F96s8ayQjJ6h6IDm','gsx0312@qq.com','update','2018-07-15'),(32,'XnHk2gT034oafX4F','GSXxg5201314@outlook.com','update','2018-07-15');
+/*!40000 ALTER TABLE `users_emailverifyrecord` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users_userprofile`
+--
+
+DROP TABLE IF EXISTS `users_userprofile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `users_userprofile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime(6) DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(150) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL,
+  `nick_name` varchar(50) NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `gender` varchar(6) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `cell_phone_number` varchar(11) DEFAULT NULL,
+  `head_shot` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_userprofile`
+--
+
+LOCK TABLES `users_userprofile` WRITE;
+/*!40000 ALTER TABLE `users_userprofile` DISABLE KEYS */;
+INSERT INTO `users_userprofile` VALUES (1,'pbkdf2_sha256$100000$mCkrD9Fc77fs$szteN0f+W2O1AJtUEATFiVDnDDwu8Hce/Dr6KtdI+sQ=','2018-07-18 19:50:29.154727',1,'feihu1996','','','GSXxg5201314@outlook.com',1,1,'2018-07-10 04:16:00.000000','Azio','2011-01-06','female','Roma','1231313456','resource/images/head_shot/2018/07/23_7lqQaXV.jpg');
+/*!40000 ALTER TABLE `users_userprofile` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users_userprofile_groups`
+--
+
+DROP TABLE IF EXISTS `users_userprofile_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `users_userprofile_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userprofile_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_userprofile_groups_userprofile_id_group_id_823cf2fc_uniq` (`userprofile_id`,`group_id`),
+  KEY `users_userprofile_groups_group_id_3de53dbf_fk_auth_group_id` (`group_id`),
+  CONSTRAINT `users_userprofile_gr_userprofile_id_a4496a80_fk_users_use` FOREIGN KEY (`userprofile_id`) REFERENCES `users_userprofile` (`id`),
+  CONSTRAINT `users_userprofile_groups_group_id_3de53dbf_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_userprofile_groups`
+--
+
+LOCK TABLES `users_userprofile_groups` WRITE;
+/*!40000 ALTER TABLE `users_userprofile_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users_userprofile_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users_userprofile_user_permissions`
+--
+
+DROP TABLE IF EXISTS `users_userprofile_user_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `users_userprofile_user_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userprofile_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_userprofile_user_p_userprofile_id_permissio_d0215190_uniq` (`userprofile_id`,`permission_id`),
+  KEY `users_userprofile_us_permission_id_393136b6_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `users_userprofile_us_permission_id_393136b6_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `users_userprofile_us_userprofile_id_34544737_fk_users_use` FOREIGN KEY (`userprofile_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_userprofile_user_permissions`
+--
+
+LOCK TABLES `users_userprofile_user_permissions` WRITE;
+/*!40000 ALTER TABLE `users_userprofile_user_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users_userprofile_user_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `xadmin_bookmark`
+--
+
+DROP TABLE IF EXISTS `xadmin_bookmark`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `xadmin_bookmark` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL,
+  `url_name` varchar(64) NOT NULL,
+  `query` varchar(1000) NOT NULL,
+  `is_share` tinyint(1) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `xadmin_bookmark_content_type_id_60941679_fk_django_co` (`content_type_id`),
+  KEY `xadmin_bookmark_user_id_42d307fc_fk_users_userprofile_id` (`user_id`),
+  CONSTRAINT `xadmin_bookmark_content_type_id_60941679_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  CONSTRAINT `xadmin_bookmark_user_id_42d307fc_fk_users_userprofile_id` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `xadmin_bookmark`
+--
+
+LOCK TABLES `xadmin_bookmark` WRITE;
+/*!40000 ALTER TABLE `xadmin_bookmark` DISABLE KEYS */;
+/*!40000 ALTER TABLE `xadmin_bookmark` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `xadmin_log`
+--
+
+DROP TABLE IF EXISTS `xadmin_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `xadmin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime(6) NOT NULL,
+  `ip_addr` char(39) DEFAULT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` varchar(32) NOT NULL,
+  `message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `xadmin_log_content_type_id_2a6cb852_fk_django_content_type_id` (`content_type_id`),
+  KEY `xadmin_log_user_id_bb16a176_fk_users_userprofile_id` (`user_id`),
+  CONSTRAINT `xadmin_log_content_type_id_2a6cb852_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  CONSTRAINT `xadmin_log_user_id_bb16a176_fk_users_userprofile_id` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `xadmin_log`
+--
+
+LOCK TABLES `xadmin_log` WRITE;
+/*!40000 ALTER TABLE `xadmin_log` DISABLE KEYS */;
+INSERT INTO `xadmin_log` VALUES (1,'2018-07-10 15:17:26.313664','127.0.0.1','2','admin(admin@qq.com)','create','已添加。',8,1),(2,'2018-07-10 15:26:10.829341','127.0.0.1','3','adminx(adminx@qq.com)','create','已添加。',8,1),(3,'2018-07-10 15:37:25.038142','127.0.0.1','1','python从入门到放弃','create','已添加。',7,1),(4,'2018-07-10 15:57:58.507795','127.0.0.1','1','Python从入坑到出道','create','已添加。',10,1),(5,'2018-07-10 16:04:21.369450','127.0.0.1','1','最后一节','create','已添加。',9,1),(6,'2018-07-10 17:19:29.897849','127.0.0.1','1','北京','create','已添加。',13,1),(7,'2018-07-10 17:20:24.211164','127.0.0.1','1','清华大学','create','已添加。',14,1),(8,'2018-07-12 14:06:53.247613','127.0.0.1','1','北京','delete','',13,1),(9,'2018-07-12 14:08:03.277626','127.0.0.1','2','北京市','create','已添加。',13,1),(10,'2018-07-12 14:08:25.395745','127.0.0.1','3','上海市','create','已添加。',13,1),(11,'2018-07-12 14:08:42.189031','127.0.0.1','4','广州市','create','已添加。',13,1),(12,'2018-07-12 14:08:59.034734','127.0.0.1','5','深圳市','create','已添加。',13,1),(13,'2018-07-12 14:09:43.336607','127.0.0.1','6','成都市','create','已添加。',13,1),(14,'2018-07-12 14:09:57.912749','127.0.0.1','7','天津市','create','已添加。',13,1),(15,'2018-07-12 14:10:26.540807','127.0.0.1','8','重庆市','create','已添加。',13,1),(16,'2018-07-12 14:20:50.335077','127.0.0.1','2','但丁','create','已添加。',14,1),(17,'2018-07-12 14:22:07.060677','127.0.0.1','2','但丁','delete','',14,1),(18,'2018-07-12 14:37:56.425181','127.0.0.1',NULL,'','delete','批量删除 7 个 城市',NULL,1),(19,'2018-07-12 14:44:32.120748','127.0.0.1','9','以色列北部海法湾港口','create','已添加。',13,1),(20,'2018-07-12 14:45:07.181953','127.0.0.1','10','大马士革','create','已添加。',13,1),(21,'2018-07-12 14:45:38.048977','127.0.0.1','11','耶路撒冷','create','已添加。',13,1),(22,'2018-07-12 14:47:21.210404','127.0.0.1','12','威尼斯','create','已添加。',13,1),(23,'2018-07-12 14:48:00.658077','127.0.0.1','13','佛罗伦萨','create','已添加。',13,1),(24,'2018-07-12 14:48:52.456762','127.0.0.1','14','托斯卡纳','create','已添加。',13,1),(25,'2018-07-12 14:51:01.218311','127.0.0.1','15','蒙特里久尼','create','已添加。',13,1),(26,'2018-07-12 14:51:11.795295','127.0.0.1','16','罗马','create','已添加。',13,1),(27,'2018-07-12 14:52:36.273318','127.0.0.1','17','马西亚夫','create','已添加。',13,1),(28,'2018-07-12 14:53:32.494020','127.0.0.1','18','卡帕多奇亚','create','已添加。',13,1),(29,'2018-07-12 14:54:18.276105','127.0.0.1','19','君士坦丁堡','create','已添加。',13,1),(30,'2018-07-12 14:55:25.204450','127.0.0.1','20','加勒比海','create','已添加。',13,1),(31,'2018-07-12 14:56:26.751674','127.0.0.1','21','巴黎','create','已添加。',13,1),(32,'2018-07-12 15:09:27.941529','127.0.0.1','3','刺客组织1','create','已添加。',14,1),(33,'2018-07-12 15:11:09.485131','127.0.0.1','4','刺客信条2','create','已添加。',14,1),(34,'2018-07-12 15:13:06.807204','127.0.0.1','5','刺客信条：兄弟会','create','已添加。',14,1),(35,'2018-07-12 15:14:28.920489','127.0.0.1','6','刺客信条4：黑旗','create','已添加。',14,1),(36,'2018-07-12 15:16:07.021970','127.0.0.1','7','刺客信条：大革命','create','已添加。',14,1),(37,'2018-07-12 15:18:08.355842','127.0.0.1','22','埃及','create','已添加。',13,1),(38,'2018-07-12 15:18:18.146784','127.0.0.1','8','刺客信条：起源','create','已添加。',14,1),(39,'2018-07-12 15:19:19.885986','127.0.0.1','23','伦敦','create','已添加。',13,1),(40,'2018-07-12 15:19:33.065741','127.0.0.1','9','刺客信条：枭雄','create','已添加。',14,1),(41,'2018-07-12 15:21:46.904727','127.0.0.1','24','明朝中国','create','已添加。',13,1),(42,'2018-07-12 15:21:51.862559','127.0.0.1','10','刺客信条：编年史','create','已添加。',14,1),(43,'2018-07-12 15:24:24.659990','127.0.0.1','25','北美殖民地','create','已添加。',13,1),(44,'2018-07-12 15:24:28.968228','127.0.0.1','11','刺客信条：叛变','create','已添加。',14,1),(45,'2018-07-12 15:26:53.854501','127.0.0.1','12','刺客信条4：自由呐喊','create','已添加。',14,1),(46,'2018-07-12 15:29:26.595810','127.0.0.1','13','刺客信条3：解放','create','已添加。',14,1),(47,'2018-07-12 15:31:40.721623','127.0.0.1','14','刺客信条：启示录','create','已添加。',14,1),(48,'2018-07-12 15:34:53.456853','127.0.0.1','15','刺客信条2：探索','create','已添加。',14,1),(49,'2018-07-12 15:36:49.740259','127.0.0.1','1','Mualim','create','已添加。',15,1),(50,'2018-07-12 16:10:31.577859','127.0.0.1',NULL,'','delete','批量删除 7 个 城市',NULL,1),(51,'2018-07-12 18:12:23.457146','127.0.0.1','15','刺客信条2：探索','change','修改 category',14,1),(52,'2018-07-12 18:12:34.482340','127.0.0.1','7','刺客信条：大革命','change','修改 category',14,1),(53,'2018-07-12 18:43:38.060924','127.0.0.1',NULL,'','delete','批量删除 1 个 课程基本信息',NULL,1),(54,'2018-07-12 22:40:25.060018','127.0.0.1',NULL,'','delete','批量删除 1 个 教师',NULL,1),(55,'2018-07-12 22:41:49.999036','127.0.0.1','2','艾吉奥·奥迪托雷','create','已添加。',15,1),(56,'2018-07-12 22:43:17.228468','127.0.0.1','3','马里奥·奥迪托雷','create','已添加。',15,1),(57,'2018-07-12 22:44:38.280145','127.0.0.1','4','克劳迪娅·奥迪托雷','create','已添加。',15,1),(58,'2018-07-12 22:45:43.823515','127.0.0.1','5','拉·沃尔佩','create','已添加。',15,1),(59,'2018-07-12 22:50:13.037897','127.0.0.1','2','潜行','create','已添加。',10,1),(60,'2018-07-12 22:51:32.058744','127.0.0.1','2','潜行','change','修改 desc',10,1),(61,'2018-07-12 22:52:47.011631','127.0.0.1','3','掩体','create','已添加。',10,1),(62,'2018-07-12 22:54:21.056538','127.0.0.1','4','低调刺杀','create','已添加。',10,1),(63,'2018-07-12 22:56:36.498518','127.0.0.1','5','高调刺杀','create','已添加。',10,1),(64,'2018-07-12 22:59:22.565525','127.0.0.1','6','双重刺杀','create','已添加。',10,1),(65,'2018-07-12 23:00:25.913206','127.0.0.1','7','鹰眼视觉','create','已添加。',10,1),(66,'2018-07-13 00:53:59.622536','127.0.0.1','5','拉·沃尔佩','change','修改 head_shot',15,1),(67,'2018-07-13 00:54:22.511566','127.0.0.1','4','克劳迪娅·奥迪托雷','change','修改 head_shot',15,1),(68,'2018-07-13 00:54:45.504418','127.0.0.1','3','马里奥·奥迪托雷','change','修改 head_shot',15,1),(69,'2018-07-13 00:55:21.257707','127.0.0.1','2','艾吉奥·奥迪托雷','change','修改 head_shot',15,1),(70,'2018-07-13 13:15:55.098436','127.0.0.1','7','鹰眼视觉','change','修改 learning_time',10,1),(71,'2018-07-13 13:16:14.740969','127.0.0.1','5','高调刺杀','change','修改 learning_time',10,1),(72,'2018-07-13 14:53:01.582911','127.0.0.1','1','feihu1996','create','已添加。',18,1),(73,'2018-07-13 14:53:15.486693','127.0.0.1','2','feihu1996','create','已添加。',18,1),(74,'2018-07-13 14:53:32.799915','127.0.0.1','3','feihu1996','create','已添加。',18,1),(75,'2018-07-13 14:53:45.397116','127.0.0.1','4','feihu1996','create','已添加。',18,1),(76,'2018-07-13 14:53:57.913457','127.0.0.1','5','feihu1996','create','已添加。',18,1),(77,'2018-07-13 14:54:10.412906','127.0.0.1','6','feihu1996','create','已添加。',18,1),(78,'2018-07-13 14:56:15.859823','127.0.0.1','1','feihu1996','change','修改 last_login，nick_name，address 和 head_shot',6,1),(79,'2018-07-13 15:50:25.337399','127.0.0.1','6','双重刺杀','change','修改 course_tag',10,1),(80,'2018-07-13 15:50:48.653521','127.0.0.1','5','高调刺杀','change','修改 course_tag',10,1),(81,'2018-07-13 15:51:07.429378','127.0.0.1','4','低调刺杀','change','修改 course_tag',10,1),(82,'2018-07-13 18:50:51.314410','127.0.0.1','2','第一章','create','已添加。',9,1),(83,'2018-07-13 18:51:02.489130','127.0.0.1','3','第二章','create','已添加。',9,1),(84,'2018-07-13 18:51:13.367083','127.0.0.1','4','第三章','create','已添加。',9,1),(85,'2018-07-13 18:51:36.739560','127.0.0.1','5','第一章','create','已添加。',9,1),(86,'2018-07-13 18:51:45.709964','127.0.0.1','6','第二章','create','已添加。',9,1),(87,'2018-07-13 18:51:57.871686','127.0.0.1','7','第三章','create','已添加。',9,1),(88,'2018-07-13 18:52:34.790578','127.0.0.1','8','第一章','create','已添加。',9,1),(89,'2018-07-13 18:52:43.932130','127.0.0.1','9','第二章','create','已添加。',9,1),(90,'2018-07-13 18:53:08.941686','127.0.0.1','10','第三章','create','已添加。',9,1),(91,'2018-07-13 18:53:21.000513','127.0.0.1','11','第四章','create','已添加。',9,1),(92,'2018-07-13 18:53:33.035018','127.0.0.1','12','第一章','create','已添加。',9,1),(93,'2018-07-13 18:53:43.096900','127.0.0.1','13','第二章','create','已添加。',9,1),(94,'2018-07-13 18:53:53.071964','127.0.0.1','14','第三章','create','已添加。',9,1),(95,'2018-07-13 18:54:03.124734','127.0.0.1','15','第四章','create','已添加。',9,1),(96,'2018-07-13 18:54:12.841647','127.0.0.1','16','第五章','create','已添加。',9,1),(97,'2018-07-13 18:54:29.911824','127.0.0.1','17','第一章','create','已添加。',9,1),(98,'2018-07-13 18:54:41.175239','127.0.0.1','18','第二章','create','已添加。',9,1),(99,'2018-07-13 18:54:51.180041','127.0.0.1','19','第一章','create','已添加。',9,1),(100,'2018-07-13 18:55:47.665494','127.0.0.1','1','第一节','create','已添加。',12,1),(101,'2018-07-13 18:57:13.742910','127.0.0.1','2','第一节','create','已添加。',12,1),(102,'2018-07-13 19:13:30.651274','127.0.0.1','3','第一节','create','已添加。',12,1),(103,'2018-07-13 19:13:40.588666','127.0.0.1',NULL,'','delete','批量删除 3 个 视频基本信息',NULL,1),(104,'2018-07-13 19:14:13.809964','127.0.0.1','4','第一节','create','已添加。',12,1),(105,'2018-07-13 19:14:33.918045','127.0.0.1','5','第一节','create','已添加。',12,1),(106,'2018-07-13 19:14:54.764421','127.0.0.1','6','第一节','create','已添加。',12,1),(107,'2018-07-13 19:15:07.600534','127.0.0.1','7','第一节','create','已添加。',12,1),(108,'2018-07-13 19:15:22.870776','127.0.0.1','8','第一节','create','已添加。',12,1),(109,'2018-07-13 19:15:46.662202','127.0.0.1','9','第一节','create','已添加。',12,1),(110,'2018-07-13 19:16:02.870336','127.0.0.1','10','第一节','create','已添加。',12,1),(111,'2018-07-13 19:16:24.298791','127.0.0.1','11','第一节','create','已添加。',12,1),(112,'2018-07-13 19:16:39.706550','127.0.0.1','12','第一节','create','已添加。',12,1),(113,'2018-07-13 19:17:03.152280','127.0.0.1','13','第一节','create','已添加。',12,1),(114,'2018-07-13 19:17:18.203167','127.0.0.1','14','第一节','create','已添加。',12,1),(115,'2018-07-13 19:17:37.689959','127.0.0.1','15','第一节','create','已添加。',12,1),(116,'2018-07-13 19:17:52.475670','127.0.0.1','16','第一节','create','已添加。',12,1),(117,'2018-07-13 19:18:06.005673','127.0.0.1','17','第一节','create','已添加。',12,1),(118,'2018-07-13 19:18:21.641304','127.0.0.1','18','第一节','create','已添加。',12,1),(119,'2018-07-13 19:18:35.542215','127.0.0.1','19','第一节','create','已添加。',12,1),(120,'2018-07-13 19:18:50.264418','127.0.0.1','20','第一节','create','已添加。',12,1),(121,'2018-07-13 19:19:13.791154','127.0.0.1','21','第一节','create','已添加。',12,1),(122,'2018-07-13 19:19:27.515201','127.0.0.1','22','第一节','create','已添加。',12,1),(123,'2018-07-13 19:28:23.945676','127.0.0.1','1','资料包','create','已添加。',11,1),(124,'2018-07-13 19:29:13.616362','127.0.0.1','2','资料包器具原型等','create','已添加。',11,1),(125,'2018-07-13 19:29:57.538615','127.0.0.1','3','资料包器具原型等','create','已添加。',11,1),(126,'2018-07-13 19:30:16.917051','127.0.0.1','4','资料包器具原型等','create','已添加。',11,1),(127,'2018-07-13 19:30:34.751279','127.0.0.1','5','资料包器具原型等','create','已添加。',11,1),(128,'2018-07-13 19:31:00.636364','127.0.0.1','6','资料包器具原型等','create','已添加。',11,1),(129,'2018-07-13 19:46:13.418820','127.0.0.1','7','鹰眼视觉','change','修改 course_tag 和 teacher',10,1),(130,'2018-07-13 19:46:24.644171','127.0.0.1','6','双重刺杀','change','修改 teacher',10,1),(131,'2018-07-13 19:46:36.073723','127.0.0.1','5','高调刺杀','change','修改 teacher',10,1),(132,'2018-07-13 19:46:51.371698','127.0.0.1','4','低调刺杀','change','修改 teacher',10,1),(133,'2018-07-13 19:47:16.625531','127.0.0.1','3','掩体','change','修改 course_tag 和 teacher',10,1),(134,'2018-07-13 19:47:44.215629','127.0.0.1','2','潜行','change','修改 course_tag 和 teacher',10,1),(135,'2018-07-13 20:10:54.788153','127.0.0.1','7','鹰眼视觉','change','修改 essential_skill 和 course_target',10,1),(136,'2018-07-13 20:11:28.862093','127.0.0.1','6','双重刺杀','change','修改 essential_skill 和 course_target',10,1),(137,'2018-07-13 20:11:59.890189','127.0.0.1','5','高调刺杀','change','修改 essential_skill 和 course_target',10,1),(138,'2018-07-13 20:12:26.621097','127.0.0.1','4','低调刺杀','change','修改 essential_skill 和 course_target',10,1),(139,'2018-07-13 20:12:57.859796','127.0.0.1','3','掩体','change','修改 essential_skill 和 course_target',10,1),(140,'2018-07-13 20:13:29.693837','127.0.0.1','2','潜行','change','修改 essential_skill 和 course_target',10,1),(141,'2018-07-13 20:51:58.138299','127.0.0.1','1','feihu1996','create','已添加。',16,1),(142,'2018-07-13 20:57:54.064391','127.0.0.1','2','feihu1996','create','已添加。',16,1),(143,'2018-07-13 20:58:07.413885','127.0.0.1','3','gsx0312@qq.com','create','已添加。',16,1),(144,'2018-07-13 20:58:21.982234','127.0.0.1','4','feihu1996','create','已添加。',16,1),(145,'2018-07-13 20:58:37.192815','127.0.0.1','5','feihu1996','create','已添加。',16,1),(146,'2018-07-13 20:58:50.541893','127.0.0.1','6','gsx0312@qq.com','create','已添加。',16,1),(147,'2018-07-14 00:40:00.155159','127.0.0.1','22','第一节','change','修改 video_source',12,1),(148,'2018-07-14 00:40:09.018139','127.0.0.1','21','第一节','change','修改 video_source',12,1),(149,'2018-07-14 00:40:19.885474','127.0.0.1','20','第一节','change','修改 video_source',12,1),(150,'2018-07-14 00:40:28.330849','127.0.0.1','19','第一节','change','修改 video_source',12,1),(151,'2018-07-14 00:40:38.531168','127.0.0.1','18','第一节','change','修改 video_source',12,1),(152,'2018-07-14 00:40:51.635011','127.0.0.1','17','第一节','change','修改 video_source',12,1),(153,'2018-07-14 00:41:01.333235','127.0.0.1','16','第一节','change','修改 video_source',12,1),(154,'2018-07-14 00:41:18.627367','127.0.0.1','15','第一节','change','修改 video_source',12,1),(155,'2018-07-14 00:41:28.583492','127.0.0.1','14','第一节','change','修改 video_source',12,1),(156,'2018-07-14 00:41:38.164544','127.0.0.1','13','第一节','change','修改 video_source',12,1),(157,'2018-07-14 00:41:50.995162','127.0.0.1','12','第一节','change','修改 video_source',12,1),(158,'2018-07-14 00:42:01.091190','127.0.0.1','11','第一节','change','修改 video_source',12,1),(159,'2018-07-14 00:42:37.244035','127.0.0.1','10','第一节','change','修改 video_source',12,1),(160,'2018-07-14 00:42:48.108145','127.0.0.1','8','第一节','change','修改 video_source',12,1),(161,'2018-07-14 00:42:58.956712','127.0.0.1','7','第一节','change','修改 video_source',12,1),(162,'2018-07-14 00:43:08.544548','127.0.0.1','6','第一节','change','修改 video_source',12,1),(163,'2018-07-14 00:43:18.937919','127.0.0.1','5','第一节','change','修改 video_source',12,1),(164,'2018-07-14 00:43:35.032634','127.0.0.1','4','第一节','change','修改 video_source',12,1),(165,'2018-07-14 12:45:36.967531','127.0.0.1','6','莱昂纳多·达·芬奇','create','已添加。',15,1),(166,'2018-07-14 12:47:45.377918','127.0.0.1','7','巴托洛缪·德·阿尔维亚诺','create','已添加。',15,1),(167,'2018-07-14 12:49:49.898780','127.0.0.1','8','罗德里戈·博尔吉亚/亚历山大六世','create','已添加。',15,1),(168,'2018-07-14 12:52:14.999699','127.0.0.1','9','恺撒·博尔吉亚','create','已添加。',15,1),(169,'2018-07-14 12:54:22.703664','127.0.0.1','10','尼可罗·马基亚维利','create','已添加。',15,1),(170,'2018-07-15 06:04:16.026047','127.0.0.1',NULL,'','delete','批量删除 1 个 用户信息',NULL,1),(171,'2018-07-15 06:04:28.733292','127.0.0.1',NULL,'','delete','批量删除 1 个 用户信息',NULL,1),(172,'2018-07-15 06:18:48.617947','127.0.0.1',NULL,'','delete','批量删除 1 个 用户信息',NULL,1),(173,'2018-07-15 06:42:49.624473','127.0.0.1','14','gsx0312@qq.com','delete','',6,1),(174,'2018-07-15 13:44:42.708568','127.0.0.1','1','hello, fei','create','已添加。',20,1),(175,'2018-07-15 13:45:09.932561','127.0.0.1','2','勤学网上线了～','create','已添加。',20,1),(176,'2018-07-15 13:45:42.429018','127.0.0.1','3','这是发给其他用户的消','create','已添加。',20,1),(177,'2018-07-15 14:47:51.034170','127.0.0.1',NULL,'','delete','批量删除 1 个 用户消息',NULL,1),(178,'2018-07-15 14:48:10.018924','127.0.0.1','4','系统消息','create','已添加。',20,1),(179,'2018-07-15 14:48:29.554941','127.0.0.1','5','还是系统消息','create','已添加。',20,1),(180,'2018-07-16 11:33:16.686862','127.0.0.1',NULL,'','delete','批量删除 5 个 用户收藏',NULL,1),(181,'2018-07-16 12:32:20.418073','127.0.0.1',NULL,'','delete','批量删除 1 个 轮播图',NULL,1),(182,'2018-07-16 12:39:15.972394','127.0.0.1','2','古墓丽影10：崛起','create','已添加。',7,1),(183,'2018-07-16 12:43:22.442654','127.0.0.1','3','鬼泣5','create','已添加。',7,1),(184,'2018-07-16 12:45:02.387812','127.0.0.1','4','刺客信条：起源','create','已添加。',7,1),(185,'2018-07-16 12:50:08.498540','127.0.0.1','7','鹰眼视觉','change','修改 is_banner',10,1),(186,'2018-07-16 12:50:41.132774','127.0.0.1','6','双重刺杀','change','修改 is_banner',10,1),(187,'2018-07-16 12:54:23.139901','127.0.0.1','26','鬼泣','create','已添加。',13,1),(188,'2018-07-16 13:00:12.738374','127.0.0.1','16','鬼泣5','create','已添加。',14,1),(189,'2018-07-16 13:03:56.737045','127.0.0.1','11','但丁','create','已添加。',15,1),(190,'2018-07-16 13:04:22.825838','127.0.0.1','8','平A/空A','create','已添加。',10,1),(191,'2018-07-16 13:07:27.473041','127.0.0.1','9','死亡螺旋','create','已添加。',10,1),(192,'2018-07-16 13:10:33.905340','127.0.0.1','10','百万突刺','create','已添加。',10,1),(193,'2018-07-16 13:13:28.192977','127.0.0.1','11','剑气','create','已添加。',10,1),(194,'2018-07-16 13:55:51.888989','127.0.0.1','12','陆地三平砍','create','已添加。',10,1),(195,'2018-07-16 14:10:13.704587','127.0.0.1','11','但丁','change','修改 head_shot',15,1),(196,'2018-07-16 14:25:22.244748','127.0.0.1','13','三位一体','create','已添加。',10,1),(197,'2018-07-16 14:33:58.722326','127.0.0.1','17','古墓丽影：崛起','create','已添加。',14,1);
+/*!40000 ALTER TABLE `xadmin_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `xadmin_usersettings`
+--
+
+DROP TABLE IF EXISTS `xadmin_usersettings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `xadmin_usersettings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `key` varchar(256) NOT NULL,
+  `value` longtext NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `xadmin_usersettings_user_id_edeabe4a_fk_users_userprofile_id` (`user_id`),
+  CONSTRAINT `xadmin_usersettings_user_id_edeabe4a_fk_users_userprofile_id` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `xadmin_usersettings`
+--
+
+LOCK TABLES `xadmin_usersettings` WRITE;
+/*!40000 ALTER TABLE `xadmin_usersettings` DISABLE KEYS */;
+INSERT INTO `xadmin_usersettings` VALUES (1,'dashboard:home:pos','',1),(2,'site-theme','/static/xadmin/css/themes/bootstrap-xadmin.css',1),(3,'users_userprofile_editform_portal','box-0,box-1,box-2,box-3,box-4|box-5',1);
+/*!40000 ALTER TABLE `xadmin_usersettings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `xadmin_userwidget`
+--
+
+DROP TABLE IF EXISTS `xadmin_userwidget`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `xadmin_userwidget` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_id` varchar(256) NOT NULL,
+  `widget_type` varchar(50) NOT NULL,
+  `value` longtext NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `xadmin_userwidget_user_id_c159233a_fk_users_userprofile_id` (`user_id`),
+  CONSTRAINT `xadmin_userwidget_user_id_c159233a_fk_users_userprofile_id` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `xadmin_userwidget`
+--
+
+LOCK TABLES `xadmin_userwidget` WRITE;
+/*!40000 ALTER TABLE `xadmin_userwidget` DISABLE KEYS */;
+/*!40000 ALTER TABLE `xadmin_userwidget` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-07-19 21:42:46
