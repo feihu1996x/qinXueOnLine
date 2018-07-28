@@ -116,6 +116,11 @@ class LoginView(View):
             if user_model is not None:  # 用户登录认证通过
                 if user_model.is_active:  # 用户已经激活
                     auto_login(request, user_model)
+                    # TODO：向用户发送一条消息，“尊敬的xxx用户, 欢迎回来”
+                    user_message_model = UserMessage()
+                    user_message_model.user = user_model.id
+                    user_message_model.message_content = '欢迎来到勤学网～'
+                    user_message_model.save()
                     return HttpResponseRedirect(reverse('index'))
                 else:  # 用户未激活
                     return render(request, 'login.html', {'msg': '用户尚未激活！', 'login_form': login_form, 'all_banner_course_records': all_banner_course_records})
@@ -149,6 +154,7 @@ class RegisterView(View):
 
     def post(self, request):
         register_form = RegisterForm(request.POST)
+        all_banner_course_records = Course.objects.filter(is_banner=True)[:3]
 
         if register_form.is_valid():  # 用户注册提交表单字段验证成功
             email = request.POST.get('email', '')
@@ -166,10 +172,17 @@ class RegisterView(View):
                 send_email(email)  # 发送注册激活链接
                 return render(request, 'login.html', {'msg': '注册激活链接已经发送到您的邮箱'})
             else:
-                return render(request, 'register.html', {'msg': '用户已经存在！', 'register_form': register_form})
+                return render(request, 'register.html', {
+                    'msg': '用户已经存在！',
+                    'register_form': register_form,
+                    'all_banner_course_records': all_banner_course_records
+                })
 
         else:  # 用户注册提交表单字段验证失败
-            return render(request, 'register.html', {'register_form': register_form})
+            return render(request, 'register.html', {
+                'register_form': register_form,
+                'all_banner_course_records': all_banner_course_records
+            })
 
 
 class ActiveView(View):
