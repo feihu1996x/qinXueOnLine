@@ -111,11 +111,11 @@
                     <div class="box mb40">
                         <h4>讲师提示</h4>
                         <div class="teacher-info">
-                            <a href="{% url 'org:teahcer_detail' course_record.teacher.id %}" target="_blank">
+                            <a href="{% url 'org:teacher_detail' course_record.teacher.id %}" target="_blank">
                                 <img src='{{ MEDIA_URL }}{{ course_record.teacher.head_shot }}' width='80' height='80' />
                             </a>
         <span class="tit">
-          <a href="{% url 'org:teahcer_detail' course_record.teacher.id %}" target="_blank">{{ course_record.teacher.name }}</a>
+          <a href="{% url 'org:teacher_detail' course_record.teacher.id %}" target="_blank">{{ course_record.teacher.name }}</a>
         </span>
                             <span class="job">{{ course_record.teacher.working_position }}</span>
                         </div>
