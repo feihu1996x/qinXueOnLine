@@ -240,6 +240,7 @@ class ResetPwdView(View):
             return render(request, 'password_reset.html', {'msg': '链接失效！'})
 
     def post(self, request, reset_code):
+        all_banner_course_records = Course.objects.filter(is_banner=True)[:3]
         reset_pwd_form = ResetPwdForm(request.POST)
         if reset_pwd_form.is_valid():
             password = request.POST.get('password', '')
@@ -252,7 +253,7 @@ class ResetPwdView(View):
                 user_model = UserProfile.objects.get(email=email)
                 user_model.password = make_password(password=password)
                 user_model.save()
-                return render(request, 'login.html', {'msg': '密码重置成功，请重新登录'})
+                return render(request, 'login.html', {'msg': '密码重置成功，请重新登录', 'all_banner_course_records': all_banner_course_records})
         else:
             return render(request, 'password_reset.html', {'email': reset_pwd_form.data.get('email'), 'reset_pwd_form': reset_pwd_form})
 

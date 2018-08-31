@@ -17,13 +17,13 @@
                 {% for teacher_record in all_teacher_records%}
                     <dl class="des users">
                         <dt>
-                            <a href="">
+                            <a href="{% url 'org:teacher_detail' teacher_record.id %}">
                                 <img width="100" height="100" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ teacher_record.head_shot }}" src="{{ MEDIA_URL }}{{ teacher_record.head_shot }}"/>
                             </a>
                         </dt>
                         <dd>
                             <h1>
-                                <a href="">
+                                <a href="{% url 'org:teacher_detail' teacher_record.id %}">
                                 {{ teacher_record.name }}<span class="key">已认证</span>
                                 </a>
                             </h1>

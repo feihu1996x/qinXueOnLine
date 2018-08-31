@@ -73,12 +73,12 @@ function search_click(){
     }else if(type === "org"){
         request_url = "/org/list?keywords=" + keywords
     }
-    window.location.href = request_url
+    window.location.href = URL_PREFIX + request_url
 }
 
 //刷新验证码
 function refresh_captcha(event){
-    $.get("/captcha/refresh/?"+Math.random(), function(result){
+    $.get(URL_PREFIX + "/captcha/refresh/?" + Math.random(), function(result){
         $('#'+event.data.form_id+' .captcha').attr("src",result.image_url);
         $('#'+event.data.form_id+' .form-control-captcha[type="hidden"]').attr("value",result.key);
     });
@@ -105,7 +105,7 @@ function find_password_form_submit(){
         cache: false,
         type: 'post',
         dataType:'json',
-        url:"/user/password/find/",
+        url:URL_PREFIX + "/user/password/find/",
         data:$('#jsFindPwdForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -163,7 +163,7 @@ $('#jsSetNewPwdBtn').on('click', function(){
         cache: false,
         type: 'post',
         dataType:'json',
-        url:"/user/mobile/resetpassword/",
+        url:URL_PREFIX + "/user/mobile/resetpassword/",
         data:$('#jsSetNewPwdForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -617,6 +617,6 @@ $(function() {
     });
 
     $('img').on('error', function(){
-        $(this).off('error').attr('src', '/static/images/error-img.png');
+        $(this).off('error').attr('src', URL_PREFIX + '/static/images/error-img.png');
     });
 });

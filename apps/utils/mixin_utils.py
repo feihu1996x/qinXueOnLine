@@ -14,6 +14,6 @@ class LoginRequiredMixin:
 	"""
 	拦截未登录的请求
 	"""
-	@method_decorator(login_required(login_url='/login/'))
+	@method_decorator(login_required(redirect_field_name = ''))
 	def dispatch(self, request, *args, **kwargs):
 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)

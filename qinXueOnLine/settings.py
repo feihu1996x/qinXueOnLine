@@ -27,10 +27,8 @@ SECRET_KEY = ')wvrr2s_58aj@v^5_2ft=$nt*+@+3!r!fc$7euizu-z#r!3ggc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -87,7 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'qinXueOnLine.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -95,8 +92,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'qinXueOnLine',
-        'USER': 'root',
-        'PASSWORD': '9f%IFhJ618',
+        'USER': 'test',
+        'PASSWORD': '*3!0CcEf',
         'HOST': '127.0.0.1'
     }
 }
@@ -137,16 +134,6 @@ USE_L10N = True
 # USE_TZ = True
 USE_TZ = False
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_URL = '/static/'
-if DEBUG:  # 开发环境
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
-    )
-else:  # 生产环境
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 # 重载用户认证机制
 AUTHENTICATION_BACKENDS = {
     'users.views.CustomBackend',
@@ -160,6 +147,31 @@ EMAIL_HOST_PASSWORD = 'admin123'
 EMAIL_USE_TLS = False
 EMAIL_FROM = EMAIL_HOST_USER
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+DEBUG = False
+
+# 自定义url前缀
+URL_PREFIX=r"/qinXueOnLine"
+URL_PREFIX=""
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+STATIC_URL = URL_PREFIX + '/static/'
+if DEBUG:  # 开发环境
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+else:  # 生产环境
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 # 上传文件根目录设置
-MEDIA_URL = '/media/'
+MEDIA_URL = URL_PREFIX + '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 3000
+
+# 登录url配置
+LOGIN_URL = (URL_PREFIX + "/login").lstrip("/")
+

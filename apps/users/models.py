@@ -50,7 +50,7 @@ class EmailVerifyRecord(models.Model):
 class Banner(models.Model):
     title = models.CharField(max_length=100, verbose_name='标题')
     cover_image = models.ImageField(upload_to='resource/images/banner_cover/%Y/%m', verbose_name='轮播图', max_length=100)
-    target_url = models.URLField(max_length=100, verbose_name='链接地址')
+    target_url = models.URLField(max_length=500, verbose_name='链接地址')
     index = models.IntegerField(default=100, verbose_name='轮播顺序')
     add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
 

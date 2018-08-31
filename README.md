@@ -1,15 +1,39 @@
 # qinXueOnLine
 
-> 使用Python 3.6.6 + Django 2.0.7 打造的在线教育平台
+## 项目描述
 
-## install dependencies
+仿"中国大学MOOC"
+
+## 技术栈
+
+HTML
+CSS
+JavaScript
+JQuery
+Django(Web后端服务)
+Xadmin(后台管理系统)
+MySQL
+Docker(容器端口映射)
+Supervisor(进程管理)
+Nginx(反向代理)
+urllib
+selenium
+多线程
+redis
+
+## Build and Setup
 
 ```bash
+
+# 安装依赖
+yum install mysql-devel gcc gcc-devel python-devel -y
 pip install -r requirements.txt
+
+# 导入数据库
+mysql -uroot -p qinXueOnLine < qinXueOnLine.sql
+
+# 启动Web App
+python3 begin.py
+
 ```
 
-## run dev server at localhost:8000
-
-```bash
-python3 manage.py runserver
-```

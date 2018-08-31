@@ -97,7 +97,7 @@
                 <div class="right butler-company-box">
                 <div class="head">
                     <h1>{{ teacher_record.course_org.org_name }}</h1>
-                    <p>万物皆空，万事皆允</p>
+                    <p>{{ teacher_record.course_org.tag }}</p>
                 </div>
                 <div class="pic">
                     <a href="{% url 'org:org_home' teacher_record.course_org.id %}">

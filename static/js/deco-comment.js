@@ -115,7 +115,7 @@ function ajax_submit_comment(comment,lesson_id,parent_id,child_uid){
 	$.ajax({
 		    type: "POST",
 		    async: false,
-		    url:"/course/add/comment/",
+		    url:URL_PREFIX + "/course/add/comment/",
 		    data:{comment:comment,parent_id:parent_id,lesson_id:lesson_id,child_uid:child_uid},
 		    success: function(data) {
 		    	p_id = data.com_pn;
@@ -158,7 +158,7 @@ function page_commment(page){
 	if(page<=0) page=1;
     $.ajax({
             type: "get",
-            url:'/lesson/comment/?lessonid='+lesson_id+'&page='+page,
+            url:URL_PREFIX + '/lesson/comment/?lessonid='+lesson_id+'&page='+page,
             async: true,
             success: function(data) {
             	data = $.trim(data);

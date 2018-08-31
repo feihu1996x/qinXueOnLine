@@ -24,11 +24,11 @@ class Course(models.Model):
     cover_image = models.ImageField(upload_to='resource/images/course_cover/%Y/%m', verbose_name='课程封面', max_length=100)
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
-    course_category = models.CharField(verbose_name='课程类别', max_length=30, default='刺客组织')
-    course_tag = models.CharField(default='', max_length=50, verbose_name='课程标签')
+    course_category = models.CharField(verbose_name='课程类别', max_length=50, default='刺客组织')
+    course_tag = models.CharField(default='', max_length=100, verbose_name='课程标签')
     teacher = models.ForeignKey(Teacher, verbose_name='课程讲师', null=True, blank=True, on_delete=models.CASCADE)
-    essential_skill = models.CharField(max_length=300,  verbose_name='课程须知', default='')
-    course_target = models.CharField(max_length=300, verbose_name='课程目标', default='')
+    essential_skill = models.TextField(verbose_name='课程须知', default='')
+    course_target = models.TextField(verbose_name='课程目标', default='')
     is_banner = models.BooleanField(default=False, verbose_name='是否轮播')
 
     class Meta:

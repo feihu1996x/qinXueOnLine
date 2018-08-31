@@ -12,7 +12,7 @@ function sendCodeChangeEmail($btn){
         cache: false,
         type: "get",
         dataType:'json',
-        url:"/user/send_email_code/",
+        url:URL_PREFIX + "/user/send_email_code/",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -47,7 +47,7 @@ var verify = verifyDialogSubmit(
         cache: false,
         type: 'post',
         dataType:'json',
-        url:"/user/modify_email/ ",
+        url:URL_PREFIX + "/user/modify_email/ ",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -81,7 +81,7 @@ $(function(){
             cache: false,
             type: "POST",
             dataType:'json',
-            url:"/user/modify_pwd",
+            url:URL_PREFIX + "/user/modify_pwd",
             data:$('#jsResetPwdForm').serialize(),
             async: true,
             success: function(data) {
@@ -94,7 +94,7 @@ $(function(){
                         title:'提交成功',
                         h2:'修改密码成功，请重新登录!',
                     });
-                    Dml.fun.winReload();
+                    Dml.fun.winReload(URL_PREFIX + '/login');
                 }else if(data.msg){
                     Dml.fun.showValidateError($("#pwd"), data.msg);
                     Dml.fun.showValidateError($("#repwd"), data.msg);
@@ -155,7 +155,7 @@ $(function(){
             cache: false,
             type: 'post',
             dataType:'json',
-            url:"/user/info/",
+            url:URL_PREFIX + "/user/info/",
             data:$jsEditUserForm.serialize(),
             async: true,
             beforeSend:function(XMLHttpRequest){

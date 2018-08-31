@@ -42,6 +42,12 @@ class CourseOrg(models.Model):
     def get_teacher_nums(self):
         return self.teacher_set.all().count()
 
+    def org_hot_courses(self):
+        """
+        获取机构经典课程
+        """
+        from courses.models import Course
+        return Course.objects.filter(course_org=self.id).order_by('-students')[:2]
 
 class Teacher(models.Model):
     course_org = models.ForeignKey(CourseOrg, verbose_name='所属机构', on_delete=models.CASCADE)
@@ -49,7 +55,7 @@ class Teacher(models.Model):
     working_years = models.IntegerField(default=0, verbose_name='工作年限')
     working_company = models.CharField(max_length=50, verbose_name='就职公司')
     working_position = models.CharField(max_length=50, verbose_name='公司职位')
-    points = models.CharField(max_length=50, verbose_name='教学特点')
+    points = models.TextField(verbose_name='教学特点')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏数')
     add_time = models.DateField(default=datetime.now, verbose_name='添加时间')

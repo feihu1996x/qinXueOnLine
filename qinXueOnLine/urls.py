@@ -26,35 +26,40 @@ from users.views import LoginView, LogoutView ,RegisterView, ActiveView, ForgetP
 from qinXueOnLine import settings
 
 urlpatterns = [
-    path('admin/', xadmin.site.urls),
-    path('', IndexView.as_view(), name='index'),
+    path((settings.URL_PREFIX + '/admin/').lstrip("/"), xadmin.site.urls),
+    path((settings.URL_PREFIX).lstrip("/"), IndexView.as_view(), name='index'),
     # path('login', login, name='login')
-    path('login', LoginView.as_view(), name='login'),
+    path(settings.LOGIN_URL, LoginView.as_view(), name='login'),
     # path('login', UnSafeLoginView.as_view(), name='login'),
-    path('logout', LogoutView.as_view(), name='logout'),
-    path('register', RegisterView.as_view(), name='register'),
-    path('captcha', include('captcha.urls')),
-    path('active/<str:active_code>', ActiveView.as_view()),
-    path('forgetpwd', ForgetPwdView.as_view(), name='forgetpwd'),
-    path('resetpwd/<str:reset_code>', ResetPwdView.as_view(), name='resetpwd'),
+    path((settings.URL_PREFIX + '/logout').lstrip("/"), LogoutView.as_view(), name='logout'),
+    path((settings.URL_PREFIX + '/register').lstrip("/"), RegisterView.as_view(), name='register'),
+
+    # 验证码url配置
+    path((settings.URL_PREFIX + '/captcha').lstrip("/"), include('captcha.urls')),
+
+    # 用户激活url配置
+    path((settings.URL_PREFIX + '/active/<str:active_code>').lstrip("/"), ActiveView.as_view()),
+
+    path((settings.URL_PREFIX + '/forgetpwd').lstrip("/"), ForgetPwdView.as_view(), name='forgetpwd'),
+    path((settings.URL_PREFIX + '/resetpwd/<str:reset_code>').lstrip("/"), ResetPwdView.as_view(), name='resetpwd'),
 
     # 课程机构url配置
-    url(r'^org/', include(('organizations.urls', 'organizations'), namespace="org")),
+    url(r'^' + (settings.URL_PREFIX + r'/org/').lstrip("/"), include(('organizations.urls', 'organizations'), namespace="org")),
 
     # 课程url配置
-    url(r'^course/', include(('courses.urls', 'courses'), namespace="course")),
+    url(r'^' + (settings.URL_PREFIX + r'/course/').lstrip("/"), include(('courses.urls', 'courses'), namespace="course")),
 
     # 用户中心url配置
-    url(r'^user/', include(('users.urls', 'users'), namespace="user")),
+    url(r'^' + (settings.URL_PREFIX + r'/user/').lstrip("/"), include(('users.urls', 'users'), namespace="user")),
 
     # 上传文件访问url配置
-    url(r'media/(?P<path>.*)$', serve,  {'document_root': settings.MEDIA_ROOT}),
+    url((settings.URL_PREFIX + r'/media/(?P<path>.*)$').lstrip("/"), serve,  {'document_root': settings.MEDIA_ROOT}),
 
     # 富文本相关url
-    url(r'^ueditor/',include(('DjangoUeditor.urls', 'ueditor'), namespace="ueditor")),
+    url(r'^' + (settings.URL_PREFIX + r'/ueditor/').lstrip("/"), include(('DjangoUeditor.urls', 'ueditor'), namespace="ueditor")),
 ]
 
 if not settings.DEBUG:  # 生产环境
-    urlpatterns.append(url(r'static/(?P<path>.*)$', serve,  {'document_root': settings.STATIC_ROOT}))
+    urlpatterns.append(url((settings.URL_PREFIX + r'/static/(?P<path>.*)$').lstrip("/"), serve,  {'document_root': settings.STATIC_ROOT}))
     # handler404 = 'users.views.page_not_found'  # 全局404页面配置
     # handler500 = 'users.views.page_error'  # 全局500页面配置

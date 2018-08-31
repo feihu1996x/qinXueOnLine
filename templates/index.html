@@ -90,7 +90,7 @@
                                     </a>
                                     <div class="des">
                                         <a href="{% url 'course:course_detail' not_banner_course_record.id %}">
-                                            <h2 title="{{ not_banner_course_record.name }}">{{ not_banner_course_record.name }}</h2>
+                                            <h2 title="{{ not_banner_course_record.name }}">{{ not_banner_course_record.name |slice:":10" }}</h2>
                                         </a>
                                         <span class="fl">难度：<i class="key">{{ not_banner_course_record.get_level_display }}</i></span>
                                         <span class="fr">学习人数：{{ not_banner_course_record.students }}</span>
