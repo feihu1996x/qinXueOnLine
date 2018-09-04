@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'qinXueOnLine',
         'USER': 'test',
         'PASSWORD': '*3!0CcEf',
-        'HOST': '127.0.0.1'
+        'HOST': '172.17.109.195'
     }
 }
 
@@ -152,8 +152,8 @@ DEBUG = True
 DEBUG = False
 
 # 自定义url前缀
-URL_PREFIX=r"/qinXueOnLine"
 URL_PREFIX=""
+URL_PREFIX="/qinXueOnLine"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -173,5 +173,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 3000
 
 # 登录url配置
-LOGIN_URL = (URL_PREFIX + "/login").lstrip("/")
+LOGIN_URL = (URL_PREFIX + "/login")
 
