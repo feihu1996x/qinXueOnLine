@@ -148,12 +148,12 @@ EMAIL_USE_TLS = False
 EMAIL_FROM = EMAIL_HOST_USER
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 DEBUG = False
+DEBUG = True
 
 # 自定义url前缀
-URL_PREFIX=r"/qinXueOnLine"
 URL_PREFIX=""
+# URL_PREFIX=r"/qinXueOnLine"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

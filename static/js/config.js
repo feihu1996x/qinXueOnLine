@@ -1,2 +1,2 @@
-URL_PREFIX = "/qinXueOnLine";
 URL_PREFIX = "";
+// URL_PREFIX = "/qinXueOnLine";
