@@ -153,11 +153,7 @@ DEBUG = True
 
 # 自定义url前缀
 URL_PREFIX=""
-<<<<<<< HEAD
 # URL_PREFIX=r"/qinXueOnLine"
-=======
-URL_PREFIX="/qinXueOnLine"
->>>>>>> 65f2537e0787a22478d2c6859a0cb372e5fd16f8
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
