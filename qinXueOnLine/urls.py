@@ -29,7 +29,7 @@ urlpatterns = [
     path((settings.URL_PREFIX + '/admin/').lstrip("/"), xadmin.site.urls),
     path((settings.URL_PREFIX).lstrip("/") + "/", IndexView.as_view(), name='index'),
     # path('login', login, name='login')
-    path(settings.LOGIN_URL, LoginView.as_view(), name='login'),
+    path(settings.LOGIN_URL.lstrip("/"), LoginView.as_view(), name='login'),
     # path('login', UnSafeLoginView.as_view(), name='login'),
     path((settings.URL_PREFIX + '/logout').lstrip("/"), LogoutView.as_view(), name='logout'),
     path((settings.URL_PREFIX + '/register').lstrip("/"), RegisterView.as_view(), name='register'),

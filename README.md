@@ -16,10 +16,11 @@ MySQL
 Docker(容器端口映射)
 Supervisor(进程管理)
 Nginx(反向代理)
+Gunicorn(WSGI)
 urllib
-selenium
+Selenium
 多线程
-redis
+Redis
 
 ## Build and Setup
 
