@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'qinXueOnLine',
         'USER': 'test',
         'PASSWORD': '*3!0CcEf',
-        'HOST': '172.17.109.195'
+        'HOST': '127.0.0.1'
     }
 }
 
@@ -148,7 +148,7 @@ EMAIL_USE_TLS = False
 EMAIL_FROM = EMAIL_HOST_USER
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
 DEBUG = True
 
 # 自定义url前缀
